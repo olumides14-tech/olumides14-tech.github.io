@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Progression</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --dark: #0A0A0F;
+    --card-bg: #111118;
+    --border: rgba(201,168,76,0.25);
+    --text: #E8E8F0;
+    --muted: #888899;
+  }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-image: 
+      radial-gradient(ellipse at 20% 0%, rgba(201,168,76,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 100%, rgba(201,168,76,0.05) 0%, transparent 55%);
+  }
+
+  .poster {
+    width: 420px;
+    background: var(--dark);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 28px 24px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .poster::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .header p {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 16px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold) 15%, var(--gold) 85%, transparent);
+    opacity: 0.35;
+  }
+
+  .item {
+    position: relative;
+    margin-bottom: 8px;
+    padding-left: 18px;
+  }
+
+  .item::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .item.highlight::before {
+    opacity: 1;
+    box-shadow: 0 0 8px var(--gold);
+    width: 9px;
+    height: 9px;
+    left: -11px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card.highlight {
+    border-color: rgba(201,168,76,0.7);
+    background: linear-gradient(135deg, #14120a, #1a1710);
+    box-shadow: 0 0 20px rgba(201,168,76,0.12);
+  }
+
+  .left {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .role {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .company {
+    font-size: 0.62rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+
+  .dates {
+    font-size: 0.58rem;
+    color: var(--muted);
+  }
+
+  .tag {
+    font-size: 0.55rem;
+    padding: 1px 7px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .tag.clearance {
+    border-color: rgba(201,168,76,0.3);
+    color: var(--gold);
+  }
+
+  .right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .salary {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  .salary-label {
+    font-size: 0.55rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 20px;
+    padding: 2px 9px;
+    font-size: 0.72rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+
+  .offer-tag {
+    position: absolute;
+    top: -8px;
+    right: 10px;
+    background: var(--gold);
+    color: #000;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  /* COMBINED ROW */
+  .combined-row {
+    margin-top: 4px;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .combined-label {
+    font-size: 0.58rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .combined-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(201,168,76,0.75);
+    letter-spacing: 0.04em;
+  }
+
+  /* EXPAND */
+  .expand-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 4px;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .expand-btn:hover { color: var(--gold); }
+
+  .description {
+    display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .description.open { display: block; }
+
+  .description ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .description ul li {
+    font-size: 0.62rem;
+    color: var(--muted);
+    line-height: 1.5;
+    padding-left: 10px;
+    position: relative;
+  }
+
+  .description ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.55rem;
+  }
+  .blurred {
+    display: inline-block;
+    filter: blur(2px);
+    user-select: none;
+    cursor: pointer;
+    transition: filter 0.3s ease;
+  }
+  .blurred:active { filter: blur(0); }
+
+  /* STATS */
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.58rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  .stat-divider {
+    width: 1px;
+    background: var(--border);
+    align-self: stretch;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 0.58rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <div class="header">
+    <h1>Career Progression</h1>
+  
+  </div>
+
+  <div class="timeline">
+
+    <!-- USMC -->
+    <div class="item">
+      <div class="card">
+        <div class="left">
+          <div class="role">United States Marine Corps</div>
+          <div class="meta">
+            <span class="dates">2018 — 2022</span>
+            <span class="tag clearance">Secret</span>
+          </div>
+        </div>
+        <div class="right">
+          <div class="salary">XX,000</div>
+          <div class="salary-label">Base Salary</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMTAS -->
+    <div class="item">
+      <div class="card">
+        <div class="left">
+          <div class="role">IT Specialist</div>
+          <div class="company">IMTAS</div>
+          <div class="meta">
+            <span class="dates">Apr — Aug 2023</span>
+            <span class="tag clearance">TS/SCI CI Poly</span>
+          </div>
+          <button class="expand-btn" onclick="toggleDesc('imtas')"><span id="imtas-arrow">▸</span> View Role</button>
+          <div class="description" id="imtas">
+            <ul>
+              <li>Delivered Tier 1–2 desktop and endpoint security support, including hard/soft token troubleshooting and DoD certificate installations.</li>
+              <li>Hardened endpoints by performing manual remediation and basic incident triage in coordination with cybersecurity personnel.</li>
+              <li>Managed AD accounts and permissions to ensure least privilege and identity access management (IAM) standards.</li>
+              <li>Acted as PKI LRA — managed PIV card issuance and RSA token administration.</li>
+              <li>Educated users on secure computing practices, system access protocols, and safe authentication measures.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="right">
+          <div class="salary">XX,000</div>
+          <div class="salary-label">Base Salary</div>
+          <div class="badge">▲ +$13K Increase</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ECS -->
+    <div class="item">
+      <div class="card">
+        <div class="left">
+          <div class="role">Service Desk Analyst</div>
+          <div class="company">ECS Federal</div>
+          <div class="meta">
+            <span class="dates">2023 — 2025</span>
+            <span class="tag clearance">TS/SCI CI Poly</span>
+          </div>
+          <button class="expand-btn" onclick="toggleDesc('ecs')"><span id="ecs-arrow">▸</span> View Role</button>
+          <div class="description" id="ecs">
+            <ul>
+              <li>Acted as Tier 2–3 escalation support investigating security-related requests involving authentication failures, endpoint security alerts, and identity access issues.</li>
+              <li>Resolved over 500 monthly tickets involving RBAC permissions, vulnerability remediation, endpoint hardening, and secure configuration enforcement.</li>
+              <li>Executed secure software deployments and system hardening tasks using PowerShell, BigFix, and Microsoft Azure.</li>
+              <li>Performed Active Directory administration — creating, modifying, and disabling user accounts, enforcing group policies, and managing role-based access.</li>
+              <li>Supported PKI certificate administration, MFA troubleshooting, and authentication token management in accordance with Zero Trust security practices.</li>
+              <li>Administered enterprise software licensing through BigFix, Adobe Admin Console, and Microsoft Azure supporting identity lifecycle management and license auditing.</li>
+              <li>Maintained compliance documentation and change records in Service Manager to support audit readiness.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="right">
+          <div class="salary">XX,000</div>
+          <div class="salary-label">Base Salary</div>
+          <div class="badge">▲ +$54K Increase</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- YSI -->
+    <div class="item">
+      <div class="card">
+        <div class="left">
+          <div class="role">Systems Administrator</div>
+          <div class="company">YSI</div>
+          <div class="meta">
+            <span class="dates">2025 — 2026</span>
+            <span class="tag clearance">TS/SCI CI Poly</span>
+          </div>
+          <button class="expand-btn" onclick="toggleDesc('ysi')"><span id="ysi-arrow">▸</span> View Role</button>
+          <div class="description" id="ysi">
+            <ul>
+              <li>Secured enterprise identity infrastructure by administering Active Directory environments, enforcing RBAC access policies, and maintaining hardened GPO security baselines.</li>
+              <li>Supported cybersecurity incident response activities including authentication investigations, directory recovery procedures, and system integrity validation.</li>
+              <li>Remediated system vulnerabilities and performed patching on Windows Server VMs within a VMware-based environment ensuring stability and compliance.</li>
+              <li>Collaborated with federal stakeholders to align with FBI change management and cybersecurity policy requirements.</li>
+              <li>Monitored domain controller health, replication, and SYSVOL performance to prevent security gaps.</li>
+              <li>Enforced identity lifecycle security managing onboarding/offboarding and secure provisioning and deprovisioning of privileged access across multiple enclaves.</li>
+              <li>Led monthly patch captain duties — building RFCs, conducting patch testing, coordinating downtime, and running Tenable scans post-patching with ISSOs.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="right">
+          <div class="salary">XX,000</div>
+          <div class="salary-label">Base Salary</div>
+          <div class="badge">▲ XP Upgrade · ▼ -$1K</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Revolutional -->
+    <div class="item highlight">
+      <div class="card highlight" style="position:relative; flex-direction: column; align-items: stretch;">
+        <span class="offer-tag">OFFER SIGNED ✍️</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; padding-top: 10px;">
+          <div class="left">
+            <div class="role">Systems Administrator</div>
+            <div class="company">Revolutional</div>
+            <div class="meta">
+              <span class="dates">2026 — Future</span>
+              <span class="tag clearance">TS/SCI</span>
+            </div>
+            <button class="expand-btn" onclick="toggleDesc('rev')"><span id="rev-arrow">▸</span> View Role</button>
+            <div class="description" id="rev">
+              <ul>
+                <li>Install, configure, and maintain operating systems, applications, and software patches in a classified onsite federal environment.</li>
+                <li>Implement security measures to protect systems from unauthorized access and conduct regular security audits and patch cycles.</li>
+                <li>Provide Tier 1–3 technical support to end-users including troubleshooting hardware, software, and connectivity issues.</li>
+                <li>Implement backup and disaster recovery solutions to protect data integrity and minimize downtime.</li>
+                <li>Identify and automate repetitive tasks using PowerShell and scripting tools to streamline administration processes.</li>
+                <li>Collaborate with IT teams and federal stakeholders to support organizational goals and ensure alignment with security policy.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="right">
+            <div class="salary">XXX,000</div>
+            <div class="salary-label">Base Salary</div>
+            <div class="badge">▲ +$25K Increase 🏆</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center; margin: 14px 0 10px; padding-top: 12px; border-top: 1px solid rgba(201,168,76,0.2);">
+    <div style="font-family:'Bebas Neue',sans-serif; font-size:0.7rem; color:var(--muted); letter-spacing:0.18em; text-transform:uppercase; margin-bottom:4px;">☑ GOAL REACHED</div>
+    <div style="font-family:'Bebas Neue',sans-serif; font-size:0.75rem; color:var(--muted); letter-spacing:0.14em; line-height:1;">6 FIGURES</div>
+    <div style="font-family:'Bebas Neue',sans-serif; font-size:0.75rem; color:var(--muted); letter-spacing:0.14em; margin-top:2px;">4 YEARS POST USMC DISCHARGE</div>
+  </div>
+
+  <div class="footer">
+    Security+ · AZ-900 · SAFe Scrum Master · WGU B.S. In Progress
+  </div>
+
+</div>
+
+<script>
+function toggleDesc(id) {
+  const desc = document.getElementById(id);
+  const arrow = document.getElementById(id + '-arrow');
+  const btn = arrow.parentElement;
+  desc.classList.toggle('open');
+  if (desc.classList.contains('open')) {
+    arrow.textContent = '▾';
+    btn.innerHTML = btn.innerHTML.replace('View Role', 'Hide Role');
+  } else {
+    arrow.textContent = '▸';
+    btn.innerHTML = btn.innerHTML.replace('Hide Role', 'View Role');
+  }
+}
+</script>
+
+</body>
+</html>
