@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Olumide Sodipo | Cleared Security & ICAM Professional</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta name="description" content="Olumide Sodipo — USMC veteran, TS/SCI CI Poly cleared Systems Administrator transitioning into Security & ICAM engineering." />
+  <title>Olumide Sodipo | Cleared Security &amp; ICAM Professional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:           #080808;
+      --bg:           #060606;
       --surface:      #101010;
       --surface-2:    #181818;
       --gold:         #C9A84C;
@@ -21,46 +22,119 @@
       --green-dim:    rgba(75,191,122,0.08);
       --green-border: rgba(75,191,122,0.28);
       --amber:        #E2A84C;
+      --red:          #D95757;
       --mono:         'JetBrains Mono', monospace;
       --serif:        'Cinzel', serif;
       --sans:         'DM Sans', sans-serif;
     }
-
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--sans);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-
+    ::selection { background: rgba(201,168,76,0.3); color: #fff; }
+    /* film grain */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 500;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    /* ─── BOOT OVERLAY ───────────────────────────── */
+    #boot {
+      position: fixed; inset: 0;
+      z-index: 1000;
+      background: #030303;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.55s ease;
+    }
+    #boot.done { opacity: 0; pointer-events: none; }
+    .boot-inner { width: min(560px, 88vw); }
+    .boot-seal {
+      font-family: var(--serif);
+      color: var(--gold);
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      opacity: 0.85;
+    }
+    #boot-lines {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      line-height: 2.1;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      min-height: 11em;
+      white-space: pre-wrap;
+    }
+    #boot-lines .ok   { color: var(--green); }
+    #boot-lines .gold { color: var(--gold); }
+    .boot-skip {
+      margin-top: 1.4rem;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: var(--text-dim);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .boot-bar {
+      margin-top: 1rem;
+      height: 2px;
+      background: var(--text-dim);
+      overflow: hidden;
+    }
+    .boot-bar span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width 0.3s ease;
+    }
+    /* ─── SPOTLIGHT CURSOR GLOW ─────────────────── */
+    #spotlight {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(560px circle at var(--mx, 50%) var(--my, 30%), rgba(201,168,76,0.055), transparent 65%);
+    }
+    /* ─── SCROLL PROGRESS ────────────────────────── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      z-index: 300;
+      box-shadow: 0 0 8px rgba(201,168,76,0.6);
+    }
     /* ─── NAVIGATION ─────────────────────────────── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
       height: 58px;
-      background: rgba(8,8,8,0.96);
+      background: rgba(6,6,6,0.92);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--gold-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 2.5rem;
+      padding: 0 2.2rem;
       gap: 1rem;
     }
-
-    .nav-brand {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
+    .nav-brand { display: flex; flex-direction: column; justify-content: center; flex-shrink: 0; cursor: pointer; }
     .nav-brand-name {
       font-family: var(--serif);
       font-size: 0.9rem;
@@ -69,69 +143,296 @@
       letter-spacing: 0.07em;
       line-height: 1.2;
     }
-
     .nav-brand-sub {
       font-family: var(--mono);
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       color: var(--text-muted);
       letter-spacing: 0.14em;
       text-transform: uppercase;
       margin-top: 1px;
     }
-
-    .nav-tabs {
-      display: flex;
-      list-style: none;
-      height: 58px;
-    }
-
+    .nav-right { display: flex; align-items: center; gap: 0.6rem; }
+    .nav-tabs { display: flex; list-style: none; height: 58px; }
     .nav-tabs li button {
       height: 58px;
-      padding: 0 1.1rem;
+      padding: 0 1rem;
       background: none;
       border: none;
       border-bottom: 2px solid transparent;
       color: var(--text-muted);
       font-family: var(--mono);
-      font-size: 0.64rem;
+      font-size: 0.63rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       cursor: pointer;
       transition: color 0.2s, border-color 0.2s;
       white-space: nowrap;
+      position: relative;
     }
-
-    .nav-tabs li button:hover {
-      color: var(--text);
+    .nav-tabs li button:hover { color: var(--text); }
+    .nav-tabs li button.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .palette-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--surface);
+      border: 1px solid var(--gold-border);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      padding: 0.38rem 0.65rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
     }
-
-    .nav-tabs li button.active {
-      color: var(--gold);
-      border-bottom-color: var(--gold);
+    .palette-btn:hover { color: var(--gold); border-color: var(--gold); }
+    .palette-btn kbd {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      border: 1px solid var(--text-dim);
+      padding: 0.05rem 0.3rem;
+      color: var(--text-muted);
     }
-
     /* ─── MAIN / PAGES ───────────────────────────── */
-    main { margin-top: 58px; }
-
+    main { margin-top: 58px; position: relative; z-index: 2; }
     .page { display: none; }
-    .page.active {
-      display: block;
-      animation: fadein 0.28s ease;
-    }
-
+    .page.active { display: block; animation: fadein 0.28s ease; }
     @keyframes fadein {
       from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0);   }
+      to   { opacity: 1; transform: translateY(0); }
     }
-
+    /* ─── HERO ───────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 58px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    #net-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 4.5rem 2.2rem 3rem;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-border);
+      background: rgba(6,6,6,0.6);
+      padding: 0.4rem 0.8rem;
+      margin-bottom: 1.6rem;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: clamp(2.4rem, 7vw, 4.6rem);
+      line-height: 1.06;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 1.1rem;
+    }
+    .hero h1 .gold-grad {
+      background: linear-gradient(100deg, var(--gold) 20%, var(--gold-light) 50%, var(--gold) 80%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shine 5s linear infinite;
+    }
+    @keyframes shine { to { background-position: 200% center; } }
+    .hero-rotator {
+      font-family: var(--mono);
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.6rem;
+      min-height: 1.6em;
+    }
+    .hero-rotator .rot-word { color: var(--gold-light); }
+    .hero-rotator .cursor-block {
+      display: inline-block;
+      width: 0.55em; height: 1em;
+      background: var(--gold);
+      vertical-align: text-bottom;
+      margin-left: 4px;
+      animation: blink-cursor 0.7s step-end infinite;
+    }
+    @keyframes blink-cursor { 0%,100% { opacity:1; } 50% { opacity:0; } }
+    .hero-sub {
+      max-width: 620px;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 2.2rem;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+    .hero-ctas { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.4rem;
+      cursor: pointer;
+      border: 1px solid var(--gold);
+      transition: all 0.22s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-solid { background: var(--gold); color: #0a0a0a; font-weight: 700; }
+    .btn-solid:hover { background: var(--gold-light); border-color: var(--gold-light); box-shadow: 0 0 24px rgba(201,168,76,0.35); transform: translateY(-1px); }
+    .btn-ghost { background: rgba(6,6,6,0.55); color: var(--gold); }
+    .btn-ghost:hover { background: var(--gold-dim); box-shadow: 0 0 18px rgba(201,168,76,0.2); transform: translateY(-1px); }
+    /* hero stats */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      max-width: 760px;
+    }
+    .stat-card {
+      background: rgba(16,16,16,0.72);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--gold-border);
+      padding: 1rem 1.1rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .stat-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-3px); }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 0.02em;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      line-height: 1.5;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 1.6rem; left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      z-index: 2;
+      animation: bob 2.4s ease-in-out infinite;
+    }
+    @keyframes bob { 0%,100% { transform: translate(-50%,0); } 50% { transform: translate(-50%,6px); } }
+    /* ─── TERMINAL ───────────────────────────────── */
+    .term-section {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2rem 2.2rem 6rem;
+    }
+    .terminal {
+      background: rgba(8,8,8,0.94);
+      border: 1px solid var(--gold-border);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.6), 0 0 40px rgba(201,168,76,0.06);
+    }
+    .term-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 0.9rem;
+      border-bottom: 1px solid var(--gold-border);
+      background: var(--surface);
+    }
+    .term-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .td-r { background: #d95757; } .td-y { background: #e2a84c; } .td-g { background: #4bbf7a; }
+    .term-title {
+      margin-left: 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+    .term-body {
+      padding: 1rem 1.1rem 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      line-height: 1.85;
+      height: 320px;
+      overflow-y: auto;
+      cursor: text;
+    }
+    .term-body::-webkit-scrollbar { width: 5px; }
+    .term-body::-webkit-scrollbar-thumb { background: var(--text-dim); }
+    .t-prompt { color: var(--green); }
+    .t-path   { color: var(--gold); }
+    .t-out    { color: var(--text-muted); white-space: pre-wrap; }
+    .t-out .hl { color: var(--gold-light); }
+    .t-out .ok { color: var(--green); }
+    .t-out .err{ color: var(--red); }
+    .term-input-row { display: flex; align-items: baseline; gap: 0; }
+    #term-input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      caret-color: var(--gold);
+      padding-left: 0.4rem;
+    }
+    .term-hint {
+      margin-top: 0.7rem;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+    }
     /* ─── PAGE HEADER ────────────────────────────── */
     .page-header {
-      padding: 3.5rem 2.5rem 2rem;
+      padding: 3.5rem 2.2rem 2rem;
       max-width: 900px;
       margin: 0 auto 2.5rem;
       border-bottom: 1px solid var(--gold-border);
     }
-
     .page-header h1 {
       font-family: var(--serif);
       font-size: clamp(1.7rem, 4vw, 2.5rem);
@@ -141,7 +442,6 @@
       line-height: 1.15;
       margin-bottom: 0.4rem;
     }
-
     .page-header p {
       font-family: var(--mono);
       font-size: 0.7rem;
@@ -149,71 +449,80 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
-
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px; height: 0.82em;
+      background: var(--gold);
+      margin-left: 3px;
+      vertical-align: text-bottom;
+      animation: blink-cursor 0.65s step-end infinite;
+    }
+    /* ─── SALARY TRAJECTORY CHART ────────────────── */
+    .traj-wrap {
+      max-width: 820px;
+      margin: 0 auto 2.6rem;
+      padding: 0 2.2rem;
+    }
+    .traj-card {
+      background: var(--surface);
+      border: 1px solid var(--gold-border);
+      padding: 1.4rem 1.5rem 1rem;
+    }
+    .traj-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .traj-title { font-family: var(--serif); font-size: 0.92rem; color: var(--gold-light); letter-spacing: 0.05em; }
+    .traj-note  { font-family: var(--mono); font-size: 0.58rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .traj-svg { width: 100%; height: auto; display: block; }
     /* ─── TIMELINE (CAREER TAB) ──────────────────── */
     .timeline-wrap {
       max-width: 820px;
       margin: 0 auto;
-      padding: 0 2.5rem 6rem;
+      padding: 0 2.2rem 6rem;
       position: relative;
     }
-
     .timeline-line {
       position: absolute;
-      left: calc(2.5rem + 0.5rem);  /* padding + dot center */
-      top: 0;
-      bottom: 4rem;
+      left: calc(2.2rem + 0.5rem);
+      top: 0; bottom: 4rem;
       width: 1px;
-      background: linear-gradient(
-        to bottom,
-        transparent,
-        var(--gold-border) 8%,
-        var(--gold-border) 92%,
-        transparent
-      );
+      background: linear-gradient(to bottom, transparent, var(--gold-border) 8%, var(--gold-border) 92%, transparent);
     }
-
-    .role-card {
-      position: relative;
-      padding-left: 2.2rem;
-      margin-bottom: 2.2rem;
-    }
-
+    .role-card { position: relative; padding-left: 2.2rem; margin-bottom: 2.2rem; }
     .role-dot {
       position: absolute;
-      left: 0;
-      top: 1.6rem;
-      width: 9px;
-      height: 9px;
+      left: 0; top: 1.6rem;
+      width: 9px; height: 9px;
       border-radius: 50%;
       background: var(--bg);
       border: 1.5px solid var(--text-dim);
       transform: translateX(4px);
       z-index: 1;
     }
-
     .role-card.current .role-dot {
       background: var(--gold);
       border-color: var(--gold);
       box-shadow: 0 0 14px rgba(201,168,76,0.55);
       animation: pulse-glow 2.5s ease-in-out infinite;
     }
-
+    @keyframes pulse-glow {
+      0%,100% { box-shadow: 0 0 10px rgba(201,168,76,0.5), 0 0 0 0 rgba(201,168,76,0.25); }
+      50%     { box-shadow: 0 0 22px rgba(201,168,76,0.9), 0 0 0 6px rgba(201,168,76,0); }
+    }
     .role-inner {
       background: var(--surface);
       border: 1px solid var(--gold-border);
       padding: 1.4rem 1.5rem;
       position: relative;
       overflow: hidden;
-      transition: border-color 0.25s;
+      transition: border-color 0.25s, box-shadow 0.25s;
     }
-
-    .role-inner:hover { border-color: rgba(201,168,76,0.45); }
-
-    .role-card.current .role-inner {
-      border-color: var(--gold-border);
-    }
-
+    .role-inner:hover { border-color: rgba(201,168,76,0.45); box-shadow: 0 10px 34px rgba(0,0,0,0.4); }
     .role-card.current .role-inner::before {
       content: '';
       position: absolute;
@@ -221,36 +530,10 @@
       height: 2px;
       background: linear-gradient(90deg, var(--gold) 0%, transparent 70%);
     }
-
-    .role-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .role-company {
-      font-family: var(--serif);
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--gold-light);
-      margin-bottom: 0.15rem;
-    }
-
-    .role-title {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-    }
-
-    .badges {
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-    }
-
+    .role-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+    .role-company { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--gold-light); margin-bottom: 0.15rem; }
+    .role-title { font-size: 0.875rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+    .badges { display: flex; gap: 0.4rem; flex-wrap: wrap; }
     .badge {
       font-family: var(--mono);
       font-size: 0.6rem;
@@ -259,48 +542,20 @@
       padding: 0.2rem 0.45rem;
       border: 1px solid;
     }
-    .badge-date      { border-color: var(--text-dim);   color: var(--text-muted); }
-    .badge-clear     { border-color: rgba(201,168,76,0.35); color: var(--gold); background: var(--gold-dim); }
-    .badge-signed    { border-color: var(--green-border); color: var(--green); background: var(--green-dim); }
-
-    .role-salary {
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .salary-base {
-      font-family: var(--mono);
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--gold-light);
-      letter-spacing: 0.06em;
-    }
-
-    .salary-delta {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      margin-top: 0.3rem;
-    }
-    .delta-up      { color: var(--green); }
+    .badge-date   { border-color: var(--text-dim); color: var(--text-muted); }
+    .badge-clear  { border-color: rgba(201,168,76,0.35); color: var(--gold); background: var(--gold-dim); }
+    .badge-signed { border-color: var(--green-border); color: var(--green); background: var(--green-dim); }
+    .role-salary { text-align: right; flex-shrink: 0; }
+    .salary-base { font-family: var(--mono); font-size: 0.95rem; font-weight: 500; color: var(--gold-light); letter-spacing: 0.06em; }
+    .salary-delta { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; margin-top: 0.3rem; }
+    .delta-up { color: var(--green); }
     .delta-neutral { color: var(--text-muted); }
-
-    .salary-bar-wrap {
-      margin-top: 0.5rem;
-      height: 2px;
-      background: var(--text-dim);
-      overflow: hidden;
-      width: 100%;
-    }
-
+    .salary-bar-wrap { margin-top: 0.5rem; height: 2px; background: var(--text-dim); overflow: hidden; width: 100%; }
     .salary-bar-fill {
-      height: 100%;
-      width: 0%;
+      height: 100%; width: 0%;
       background: linear-gradient(90deg, var(--green), #88ffb0);
-      transition: width 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: width 1.1s cubic-bezier(0.4,0,0.2,1);
     }
-
     .goal-strip {
       margin-top: 0.85rem;
       padding: 0.4rem 0.8rem;
@@ -314,23 +569,15 @@
       position: relative;
       overflow: hidden;
     }
-
     .goal-strip::after {
       content: '';
       position: absolute;
       top: 0; left: -100%;
-      width: 60%;
-      height: 100%;
+      width: 60%; height: 100%;
       background: linear-gradient(90deg, transparent, rgba(75,191,122,0.18), transparent);
       animation: goal-shimmer 3s ease-in-out infinite;
     }
-
-    @keyframes goal-shimmer {
-      0%   { left: -60%; }
-      100% { left: 160%; }
-    }
-
-    /* expand btn */
+    @keyframes goal-shimmer { 0% { left: -60%; } 100% { left: 160%; } }
     .expand-btn {
       margin-top: 1rem;
       display: inline-flex;
@@ -347,24 +594,11 @@
       cursor: pointer;
       transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
-    .expand-btn:hover {
-      color: var(--gold);
-      border-color: var(--gold);
-      background: var(--gold-dim);
-    }
+    .expand-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-dim); }
     .expand-btn .chevron { transition: transform 0.22s; font-style: normal; }
     .expand-btn.open .chevron { transform: rotate(90deg); }
-
-    .role-details {
-      display: none;
-      margin-top: 1.1rem;
-      padding-top: 1.1rem;
-      border-top: 1px solid var(--gold-border);
-    }
-    .role-details.open {
-      display: block;
-      animation: fadein 0.22s ease;
-    }
+    .role-details { display: none; margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--gold-border); }
+    .role-details.open { display: block; animation: fadein 0.22s ease; }
     .role-details ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
     .role-details li {
       font-size: 0.865rem;
@@ -373,27 +607,10 @@
       padding-left: 1.1rem;
       position: relative;
     }
-    .role-details li::before {
-      content: '›';
-      position: absolute; left: 0;
-      color: var(--gold);
-    }
-
-    .role-certs {
-      margin-top: 0.8rem;
-      font-family: var(--mono);
-      font-size: 0.63rem;
-      color: var(--text-muted);
-      letter-spacing: 0.07em;
-    }
-
+    .role-details li::before { content: '›'; position: absolute; left: 0; color: var(--gold); }
+    .role-certs { margin-top: 0.8rem; font-family: var(--mono); font-size: 0.63rem; color: var(--text-muted); letter-spacing: 0.07em; }
     /* ─── CERTIFICATIONS TAB ─────────────────────── */
-    .certs-wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 2.5rem 6rem;
-    }
-
+    .certs-wrap { max-width: 900px; margin: 0 auto; padding: 0 2.2rem 6rem; }
     .section-label {
       font-family: var(--mono);
       font-size: 0.65rem;
@@ -404,28 +621,32 @@
       border-bottom: 1px solid var(--gold-border);
       margin-bottom: 1.4rem;
     }
-
     .cert-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 0.9rem;
       margin-bottom: 2.8rem;
     }
-
     .cert-card {
       background: var(--surface);
       border: 1px solid var(--gold-border);
       padding: 1.2rem;
       position: relative;
-      transition: border-color 0.22s, transform 0.22s;
+      overflow: hidden;
+      transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
     }
-    .cert-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-2px); }
-    .cert-card.target {
-      border-style: dashed;
-      border-color: var(--text-dim);
+    .cert-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -120%;
+      width: 70%; height: 100%;
+      background: linear-gradient(105deg, transparent, rgba(201,168,76,0.08), transparent);
+      transition: left 0.55s ease;
     }
+    .cert-card:hover::before { left: 130%; }
+    .cert-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
+    .cert-card.target { border-style: dashed; border-color: var(--text-dim); }
     .cert-card.target:hover { border-color: var(--gold-border); }
-
     .cert-check {
       position: absolute;
       top: 0.7rem; right: 0.7rem;
@@ -439,96 +660,71 @@
       font-size: 0.62rem;
       font-weight: 700;
     }
-
-    .cert-emoji { font-size: 1.6rem; margin-bottom: 0.65rem; line-height: 1; }
-    .cert-name {
-      font-family: var(--serif);
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.35;
-      margin-bottom: 0.25rem;
-    }
-    .cert-issuer {
+    .cert-phase {
+      position: absolute;
+      top: 0.7rem; right: 0.7rem;
       font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .cert-status {
-      margin-top: 0.65rem;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .s-earned     { color: var(--green);  }
-    .s-progress   { color: var(--amber);  }
-    .s-target     { color: var(--gold);   }
-
-    /* ─── LAB & PROJECTS (STUB) ──────────────────── */
-    /* ─── RESOURCES (STUB) ───────────────────────── */
-    .stub-wrap {
-      max-width: 580px;
-      margin: 5rem auto;
-      padding: 0 2.5rem;
-      text-align: center;
-    }
-    .stub-tag {
-      font-family: var(--mono);
-      font-size: 0.63rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
       color: var(--gold);
-      margin-bottom: 1rem;
+      border: 1px solid var(--gold-border);
+      padding: 0.12rem 0.4rem;
+      text-transform: uppercase;
     }
-    .stub-wrap h2 {
-      font-family: var(--serif);
-      font-size: 1.6rem;
-      font-weight: 400;
-      color: var(--text);
-      margin-bottom: 1.2rem;
-    }
-    .stub-divider { width: 48px; height: 1px; background: var(--gold-border); margin: 0 auto 1.2rem; }
-    .stub-wrap p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-    }
-
-    .lab-modules {
+    .cert-emoji { font-size: 1.6rem; margin-bottom: 0.65rem; line-height: 1; }
+    .cert-name { font-family: var(--serif); font-size: 0.875rem; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 0.25rem; }
+    .cert-issuer { font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .cert-status { margin-top: 0.65rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .s-earned   { color: var(--green); }
+    .s-progress { color: var(--amber); }
+    .s-target   { color: var(--gold); }
+    /* ─── LAB TAB ────────────────────────────────── */
+    .lab-wrap { max-width: 900px; margin: 0 auto; padding: 0 2.2rem 6rem; }
+    .lab-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 0.8rem;
-      margin-top: 2rem;
-      text-align: left;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 0.9rem;
+      margin-bottom: 3rem;
     }
-    .lab-module {
-      border: 1px dashed var(--text-dim);
-      padding: 1rem;
+    .lab-card {
       background: var(--surface);
+      border: 1px solid var(--gold-border);
+      padding: 1.3rem;
+      position: relative;
+      transition: border-color 0.22s, transform 0.22s;
     }
-    .lab-module-icon  { font-size: 1.3rem; margin-bottom: 0.5rem; }
-    .lab-module-name  { font-family: var(--serif); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem; }
-    .lab-module-tag   { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
-
+    .lab-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-3px); }
+    .lab-card.planned { border-style: dashed; border-color: var(--text-dim); }
+    .lab-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+    .lab-name { font-family: var(--serif); font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+    .lab-tag { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); line-height: 1.7; }
+    .lab-status {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--mono);
+      font-size: 0.54rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .lab-status .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .st-online   { color: var(--green); } .st-online .dot   { background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse-dot 2s infinite; }
+    .st-building { color: var(--amber); } .st-building .dot { background: var(--amber); box-shadow: 0 0 6px var(--amber); animation: pulse-dot 1.4s infinite; }
+    .st-planned  { color: var(--text-dim); } .st-planned .dot { background: var(--text-dim); }
+    .lab-progress { margin-top: 0.9rem; height: 3px; background: var(--text-dim); overflow: hidden; }
+    .lab-progress span { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); transition: width 1s cubic-bezier(0.4,0,0.2,1); }
     /* ─── ABOUT TAB ──────────────────────────────── */
-    .about-wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2.5rem 6rem;
-    }
-
+    .about-wrap { max-width: 860px; margin: 0 auto; padding: 0 2.2rem 6rem; }
     .about-grid {
       display: grid;
-      grid-template-columns: 220px 1fr;
+      grid-template-columns: 230px 1fr;
       gap: 3rem;
       margin-bottom: 3rem;
       align-items: start;
     }
     @media (max-width: 640px) { .about-grid { grid-template-columns: 1fr; } }
-
     .id-card {
       background: var(--surface);
       border: 1px solid var(--gold-border);
@@ -536,8 +732,10 @@
       text-align: center;
       position: sticky;
       top: 78px;
+      transition: transform 0.15s ease, box-shadow 0.3s;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
-
     .id-avatar {
       width: 72px; height: 72px;
       border-radius: 50%;
@@ -552,26 +750,8 @@
       color: var(--gold);
       font-weight: 600;
     }
-
-    .id-name {
-      font-family: var(--serif);
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--gold-light);
-      margin-bottom: 0.35rem;
-      line-height: 1.3;
-    }
-
-    .id-role {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-
+    .id-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 600; color: var(--gold-light); margin-bottom: 0.35rem; line-height: 1.3; }
+    .id-role { font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.8; margin-bottom: 1rem; }
     .id-clearance {
       display: inline-block;
       border: 1px solid var(--gold);
@@ -583,9 +763,7 @@
       text-transform: uppercase;
       background: var(--gold-dim);
     }
-
     .id-divider { width: 40px; height: 1px; background: var(--gold-border); margin: 1rem auto; }
-
     .id-links { display: flex; flex-direction: column; gap: 0.5rem; }
     .id-link {
       display: flex;
@@ -602,19 +780,10 @@
       letter-spacing: 0.06em;
     }
     .id-link:hover { color: var(--gold); border-color: var(--gold); }
-
-    .about-body { }
-
-    .about-bio {
-      font-size: 0.92rem;
-      color: var(--text);
-      line-height: 1.82;
-      margin-bottom: 2.5rem;
-    }
+    .about-bio { font-size: 0.92rem; color: var(--text); line-height: 1.82; margin-bottom: 2.5rem; }
     .about-bio p { margin-bottom: 0.9rem; }
     .about-bio p:last-child { margin-bottom: 0; }
     .about-bio strong { color: var(--gold-light); font-weight: 500; }
-
     .about-section { margin-bottom: 2.4rem; }
     .about-section-title {
       font-family: var(--serif);
@@ -626,7 +795,6 @@
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--gold-border);
     }
-
     .chip-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
     .chip {
       font-family: var(--mono);
@@ -637,9 +805,29 @@
       border: 1px solid var(--gold-border);
       color: var(--text-muted);
       text-transform: uppercase;
+      transition: color 0.2s, border-color 0.2s, transform 0.2s;
     }
+    .chip:hover { color: var(--gold); border-color: var(--gold); transform: translateY(-2px); }
     .chip.target { border-color: rgba(201,168,76,0.4); color: var(--gold); }
-
+    .radar-card {
+      background: var(--surface);
+      border: 1px solid var(--gold-border);
+      padding: 1.4rem;
+      margin-bottom: 2.4rem;
+    }
+    .radar-legend {
+      display: flex;
+      gap: 1.4rem;
+      justify-content: center;
+      margin-top: 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .radar-legend .lg { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .lg-swatch { width: 14px; height: 3px; }
+    #radar-canvas { width: 100%; max-width: 520px; display: block; margin: 0 auto; }
     .contact-list { display: flex; flex-direction: column; gap: 0.65rem; }
     .contact-row {
       display: flex;
@@ -652,116 +840,230 @@
       padding: 0.7rem 0.9rem;
       background: var(--surface);
       border: 1px solid var(--gold-border);
-      transition: color 0.2s, border-color 0.2s;
+      transition: color 0.2s, border-color 0.2s, transform 0.2s;
       letter-spacing: 0.04em;
     }
-    .contact-row:hover { color: var(--gold); border-color: var(--gold); }
+    .contact-row:hover { color: var(--gold); border-color: var(--gold); transform: translateX(4px); }
     .contact-icon { color: var(--gold); font-size: 0.9rem; width: 18px; text-align: center; }
-
+    /* ─── COMMAND PALETTE ────────────────────────── */
+    #palette {
+      position: fixed; inset: 0;
+      z-index: 900;
+      background: rgba(3,3,3,0.72);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 14vh;
+    }
+    #palette.open { display: flex; animation: fadein 0.18s ease; }
+    .palette-box {
+      width: min(520px, 90vw);
+      background: var(--surface);
+      border: 1px solid var(--gold);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.8), 0 0 50px rgba(201,168,76,0.12);
+    }
+    #palette-input {
+      width: 100%;
+      background: none;
+      border: none;
+      outline: none;
+      border-bottom: 1px solid var(--gold-border);
+      padding: 0.95rem 1.1rem;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      caret-color: var(--gold);
+    }
+    #palette-list { list-style: none; max-height: 300px; overflow-y: auto; padding: 0.4rem 0; }
+    #palette-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.65rem 1.1rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    #palette-list li .pl-tag { font-size: 0.56rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.12em; }
+    #palette-list li.sel, #palette-list li:hover { background: var(--gold-dim); color: var(--gold); }
+    /* ─── TOAST ──────────────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 2rem; left: 50%;
+      transform: translate(-50%, 140%);
+      z-index: 950;
+      background: var(--surface);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.8rem 1.4rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 30px rgba(201,168,76,0.2);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    #toast.show { transform: translate(-50%, 0); }
     /* ─── FOOTER ─────────────────────────────────── */
     footer {
       border-top: 1px solid var(--gold-border);
-      padding: 1.4rem 2.5rem;
+      padding: 1.4rem 2.2rem;
       text-align: center;
       font-family: var(--mono);
       font-size: 0.6rem;
       color: var(--text-dim);
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      position: relative;
+      z-index: 2;
     }
-
-    /* ─── ANIMATIONS ────────────────────────────── */
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 10px rgba(201,168,76,0.5),  0 0 0 0   rgba(201,168,76,0.25); }
-      50%       { box-shadow: 0 0 22px rgba(201,168,76,0.9),  0 0 0 6px rgba(201,168,76,0); }
-    }
-
-    @keyframes blink-cursor {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0; }
-    }
-
-    @keyframes nav-underline-in {
-      from { transform: scaleX(0); transform-origin: left; }
-      to   { transform: scaleX(1); transform-origin: left; }
-    }
-
-    .typewriter-cursor {
-      display: inline-block;
-      width: 2px;
-      height: 0.82em;
-      background: var(--gold);
-      margin-left: 3px;
-      vertical-align: text-bottom;
-      animation: blink-cursor 0.65s step-end infinite;
-    }
-
-    /* ─── RESPONSIVE ─────────────────────────────── */
+    footer .f-hint { margin-top: 0.4rem; opacity: 0.7; }
+    /* ─── RESPONSIVE / MOTION ────────────────────── */
     @media (max-width: 700px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-        height: auto;
-        padding: 0.6rem 1rem 0;
-        gap: 0;
-      }
+      nav { flex-direction: column; align-items: flex-start; height: auto; padding: 0.6rem 1rem 0; gap: 0; }
       .nav-brand { padding-bottom: 0.4rem; }
       .nav-brand-sub { display: none; }
-      .nav-tabs {
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
+      .nav-right { width: 100%; justify-content: space-between; }
+      .palette-btn { display: none; }
+      .nav-tabs { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
       .nav-tabs::-webkit-scrollbar { display: none; }
-      .nav-tabs li button {
-        height: 38px;
-        padding: 0 0.85rem;
-        font-size: 0.6rem;
-        letter-spacing: 0.08em;
-        white-space: nowrap;
-      }
+      .nav-tabs li button { height: 38px; padding: 0 0.8rem; font-size: 0.58rem; }
       main { margin-top: 82px; }
-      .page-header, .timeline-wrap, .certs-wrap, .about-wrap { padding-left: 1.2rem; padding-right: 1.2rem; }
-      .stub-wrap { padding: 0 1.2rem; }
+      .hero { min-height: calc(100vh - 82px); }
+      .hero-content, .page-header, .timeline-wrap, .certs-wrap, .lab-wrap, .about-wrap, .traj-wrap, .term-section { padding-left: 1.2rem; padding-right: 1.2rem; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
       .id-card { position: static; }
       .about-grid { gap: 1.8rem; }
+      .scroll-hint { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
-
-<!-- ════════════════════════════════════════════════ -->
-<!--  NAV                                            -->
-<!-- ════════════════════════════════════════════════ -->
+<div id="boot">
+  <div class="boot-inner">
+    <div class="boot-seal">◈ Sodipo // Secure Portfolio</div>
+    <div id="boot-lines"></div>
+    <div class="boot-bar"><span id="boot-bar-fill"></span></div>
+    <div class="boot-skip">Click anywhere to skip</div>
+  </div>
+</div>
+<div id="spotlight"></div>
+<div id="scroll-progress"></div>
+<div id="toast"></div>
 <nav>
-  <div class="nav-brand">
+  <div class="nav-brand" onclick="switchTabById('home')">
     <div class="nav-brand-name">Olumide Sodipo</div>
     <div class="nav-brand-sub">TS/SCI · CI Polygraph · USMC Veteran</div>
   </div>
-  <ul class="nav-tabs">
-    <li><button class="active" onclick="switchTab('career', this)">Career</button></li>
-    <li><button onclick="switchTab('certs', this)">Certifications</button></li>
-    <li><button onclick="switchTab('lab', this)">Lab &amp; Projects</button></li>
-    <li><button onclick="switchTab('about', this)">About</button></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-tabs">
+      <li><button class="active" data-tab="home" onclick="switchTab('home', this)">Home</button></li>
+      <li><button data-tab="career" onclick="switchTab('career', this)">Career</button></li>
+      <li><button data-tab="certs" onclick="switchTab('certs', this)">Certifications</button></li>
+      <li><button data-tab="lab" onclick="switchTab('lab', this)">Lab &amp; Projects</button></li>
+      <li><button data-tab="about" onclick="switchTab('about', this)">About</button></li>
+    </ul>
+    <button class="palette-btn" onclick="openPalette()">Search <kbd>Ctrl</kbd><kbd>K</kbd></button>
+  </div>
 </nav>
-
 <main>
-
-<!-- ════════════════════════════════════════════════ -->
-<!--  TAB: CAREER                                    -->
-<!-- ════════════════════════════════════════════════ -->
-<div id="tab-career" class="page active">
+<!-- ═══ TAB: HOME ═══ -->
+<div id="tab-home" class="page active">
+  <section class="hero">
+    <canvas id="net-canvas"></canvas>
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="live-dot"></span> Active TS/SCI · CI Polygraph · Open to Cleared Opportunities</div>
+      <h1>Securing Identity in<br><span class="gold-grad">Classified Environments</span></h1>
+      <div class="hero-rotator">&gt; <span class="rot-word" id="rot-word">Systems Administrator</span><span class="cursor-block"></span></div>
+      <p class="hero-sub">
+        <strong>U.S. Marine Corps veteran</strong> engineering the path from cleared systems administration to
+        <strong>Security &amp; ICAM engineering</strong> — Active Directory, Entra ID, PKI, privileged access,
+        and Zero Trust across mission-critical federal networks.
+      </p>
+      <div class="hero-ctas">
+        <button class="btn btn-solid" onclick="switchTabById('career')">⬢ View Career</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('term-section').scrollIntoView({behavior:'smooth'}); setTimeout(function(){document.getElementById('term-input').focus();}, 600);">▸_ Open Terminal</button>
+        <a class="btn btn-ghost" href="mailto:olumides14@gmail.com">✉ Contact</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card"><div class="stat-num"><span data-count="8">0</span>+</div><div class="stat-label">Years in Federal &amp; DoD IT</div></div>
+        <div class="stat-card"><div class="stat-num"><span data-count="400">0</span>+</div><div class="stat-label">Systems Migrated &amp; Imaged</div></div>
+        <div class="stat-card"><div class="stat-num"><span data-count="500">0</span>+</div><div class="stat-label">Monthly Tickets at Peak</div></div>
+        <div class="stat-card"><div class="stat-num"><span data-count="7">0</span></div><div class="stat-label">Certifications Earned</div></div>
+      </div>
+    </div>
+    <div class="scroll-hint">▼ Scroll</div>
+  </section>
+  <section class="term-section" id="term-section">
+    <div class="terminal">
+      <div class="term-titlebar">
+        <span class="term-dot td-r"></span><span class="term-dot td-y"></span><span class="term-dot td-g"></span>
+        <span class="term-title">olumide@secure-enclave: ~ — UNCLASSIFIED//VISITOR</span>
+      </div>
+      <div class="term-body" id="term-body" onclick="document.getElementById('term-input').focus()">
+        <div class="t-out">Sodipo Secure Shell v2.6 — identity verified <span class="ok">✓</span>
+Type '<span class="hl">help</span>' to explore this portfolio from the command line.
+</div>
+        <div class="term-input-row">
+          <span class="t-prompt">visitor@sodipo</span><span class="t-path">:~$</span>
+          <input id="term-input" type="text" autocomplete="off" spellcheck="false" aria-label="terminal input" />
+        </div>
+      </div>
+      <div style="display:none" id="term-template"></div>
+    </div>
+    <div class="term-hint">Real recruiters have found 'sudo' the hard way · Try: whoami · clearance · roadmap</div>
+  </section>
+</div>
+<!-- ═══ TAB: CAREER ═══ -->
+<div id="tab-career" class="page">
   <div class="page-header">
     <h1>Career Progression</h1>
     <p>U.S. Marine Corps → Federal Security &amp; ICAM Engineering</p>
   </div>
-
+  <div class="traj-wrap">
+    <div class="traj-card">
+      <div class="traj-head">
+        <div class="traj-title">Compensation Trajectory</div>
+        <div class="traj-note">Indexed · 2018 → 2026 · 🏆 Six Figures Reached</div>
+      </div>
+      <svg class="traj-svg" viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" aria-label="Compensation growth chart">
+        <defs>
+          <linearGradient id="traj-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(201,168,76,0.28)"/>
+            <stop offset="100%" stop-color="rgba(201,168,76,0)"/>
+          </linearGradient>
+        </defs>
+        <g font-family="JetBrains Mono, monospace" font-size="10" fill="#7A7568">
+          <text x="40"  y="192" text-anchor="middle">USMC '18</text>
+          <text x="200" y="192" text-anchor="middle">IMTAS '23</text>
+          <text x="360" y="192" text-anchor="middle">ECS '23</text>
+          <text x="520" y="192" text-anchor="middle">YSI '25</text>
+          <text x="672" y="192" text-anchor="middle">REV '26</text>
+        </g>
+        <path id="traj-area" d="M40,160 L200,138 L360,72 L520,74 L672,28 L672,172 L40,172 Z" fill="url(#traj-fill)" opacity="0"/>
+        <polyline id="traj-line" points="40,160 200,138 360,72 520,74 672,28"
+          fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <g id="traj-dots" fill="#060606" stroke="#C9A84C" stroke-width="1.5">
+          <circle cx="40"  cy="160" r="4"/>
+          <circle cx="200" cy="138" r="4"/>
+          <circle cx="360" cy="72"  r="4"/>
+          <circle cx="520" cy="74"  r="4"/>
+          <circle cx="672" cy="28"  r="5" fill="#C9A84C"/>
+        </g>
+        <text x="672" y="14" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#E2C97E">🏆 6-FIG</text>
+      </svg>
+    </div>
+  </div>
   <div class="timeline-wrap">
     <div class="timeline-line"></div>
-
-    <!-- USMC -->
     <div class="role-card">
       <div class="role-dot"></div>
       <div class="role-inner">
@@ -769,18 +1071,11 @@
           <div>
             <div class="role-company">United States Marine Corps</div>
             <div class="role-title">Helpdesk Technician</div>
-            <div class="badges">
-              <span class="badge badge-date">2018 — 2022</span>
-              <span class="badge badge-clear">Secret</span>
-            </div>
+            <div class="badges"><span class="badge badge-date">2018 — 2022</span><span class="badge badge-clear">Secret</span></div>
           </div>
-          <div class="role-salary">
-            <div class="salary-base">$XX,000 base</div>
-          </div>
+          <div class="role-salary"><div class="salary-base">$XX,000 base</div></div>
         </div>
-        <button class="expand-btn" onclick="toggleRole(this)">
-          <i class="chevron">▶</i><span class="btn-label">View Role</span>
-        </button>
+        <button class="expand-btn" onclick="toggleRole(this)"><i class="chevron">▶</i><span class="btn-label">View Role</span></button>
         <div class="role-details">
           <ul>
             <li>Provided Tier 1 support in a classified environment, resolving system issues, hardware failures, and OS/application errors.</li>
@@ -791,8 +1086,6 @@
         </div>
       </div>
     </div>
-
-    <!-- IMTAS -->
     <div class="role-card">
       <div class="role-dot"></div>
       <div class="role-inner">
@@ -800,10 +1093,7 @@
           <div>
             <div class="role-company">IMTAS</div>
             <div class="role-title">IT Specialist</div>
-            <div class="badges">
-              <span class="badge badge-date">Apr — Aug 2023</span>
-              <span class="badge badge-clear">TS/SCI CI Poly</span>
-            </div>
+            <div class="badges"><span class="badge badge-date">Apr — Aug 2023</span><span class="badge badge-clear">TS/SCI CI Poly</span></div>
           </div>
           <div class="role-salary">
             <div class="salary-base">$XX,000 base</div>
@@ -811,9 +1101,7 @@
             <div class="salary-bar-wrap"><div class="salary-bar-fill" data-pct="25"></div></div>
           </div>
         </div>
-        <button class="expand-btn" onclick="toggleRole(this)">
-          <i class="chevron">▶</i><span class="btn-label">View Role</span>
-        </button>
+        <button class="expand-btn" onclick="toggleRole(this)"><i class="chevron">▶</i><span class="btn-label">View Role</span></button>
         <div class="role-details">
           <ul>
             <li>Delivered Tier 1–2 desktop and endpoint security support, including hard/soft token troubleshooting and DoD certificate installations.</li>
@@ -825,8 +1113,6 @@
         </div>
       </div>
     </div>
-
-    <!-- ECS -->
     <div class="role-card">
       <div class="role-dot"></div>
       <div class="role-inner">
@@ -834,10 +1120,7 @@
           <div>
             <div class="role-company">ECS Federal</div>
             <div class="role-title">Service Desk Analyst</div>
-            <div class="badges">
-              <span class="badge badge-date">2023 — 2025</span>
-              <span class="badge badge-clear">TS/SCI CI Poly</span>
-            </div>
+            <div class="badges"><span class="badge badge-date">2023 — 2025</span><span class="badge badge-clear">TS/SCI CI Poly</span></div>
           </div>
           <div class="role-salary">
             <div class="salary-base">$XX,000 base</div>
@@ -845,9 +1128,7 @@
             <div class="salary-bar-wrap"><div class="salary-bar-fill" data-pct="72"></div></div>
           </div>
         </div>
-        <button class="expand-btn" onclick="toggleRole(this)">
-          <i class="chevron">▶</i><span class="btn-label">View Role</span>
-        </button>
+        <button class="expand-btn" onclick="toggleRole(this)"><i class="chevron">▶</i><span class="btn-label">View Role</span></button>
         <div class="role-details">
           <ul>
             <li>Acted as Tier 2–3 escalation support investigating security-related requests involving authentication failures, endpoint security alerts, and identity access issues.</li>
@@ -862,8 +1143,6 @@
         </div>
       </div>
     </div>
-
-    <!-- YSI -->
     <div class="role-card">
       <div class="role-dot"></div>
       <div class="role-inner">
@@ -871,10 +1150,7 @@
           <div>
             <div class="role-company">YSI</div>
             <div class="role-title">Systems Administrator</div>
-            <div class="badges">
-              <span class="badge badge-date">2025 — 2026</span>
-              <span class="badge badge-clear">TS/SCI CI Poly</span>
-            </div>
+            <div class="badges"><span class="badge badge-date">2025 — 2026</span><span class="badge badge-clear">TS/SCI CI Poly</span></div>
           </div>
           <div class="role-salary">
             <div class="salary-base">$XX,000 base</div>
@@ -882,9 +1158,7 @@
             <div class="salary-bar-wrap"><div class="salary-bar-fill" data-pct="74" style="background: linear-gradient(90deg, var(--text-muted), #aaa);"></div></div>
           </div>
         </div>
-        <button class="expand-btn" onclick="toggleRole(this)">
-          <i class="chevron">▶</i><span class="btn-label">View Role</span>
-        </button>
+        <button class="expand-btn" onclick="toggleRole(this)"><i class="chevron">▶</i><span class="btn-label">View Role</span></button>
         <div class="role-details">
           <ul>
             <li>Secured enterprise identity infrastructure by administering Active Directory environments, enforcing RBAC access policies, and maintaining hardened GPO security baselines.</li>
@@ -898,8 +1172,6 @@
         </div>
       </div>
     </div>
-
-    <!-- REVOLUTIONAL — CURRENT / GOAL REACHED -->
     <div class="role-card current">
       <div class="role-dot"></div>
       <div class="role-inner">
@@ -907,11 +1179,7 @@
           <div>
             <div class="role-company">Revolutional</div>
             <div class="role-title">Systems Administrator</div>
-            <div class="badges">
-              <span class="badge badge-date">2026 — Future</span>
-              <span class="badge badge-clear">TS/SCI</span>
-              <span class="badge badge-signed">✍ Offer Signed</span>
-            </div>
+            <div class="badges"><span class="badge badge-date">2026 — Present</span><span class="badge badge-clear">TS/SCI</span><span class="badge badge-signed">✍ Offer Signed</span></div>
           </div>
           <div class="role-salary">
             <div class="salary-base">$XXX,000 base</div>
@@ -920,9 +1188,7 @@
           </div>
         </div>
         <div class="goal-strip">☑ Milestone Reached · 6 Figures · 4 Years Post USMC Discharge</div>
-        <button class="expand-btn" onclick="toggleRole(this)">
-          <i class="chevron">▶</i><span class="btn-label">View Role</span>
-        </button>
+        <button class="expand-btn" onclick="toggleRole(this)"><i class="chevron">▶</i><span class="btn-label">View Role</span></button>
         <div class="role-details">
           <ul>
             <li>Install, configure, and maintain operating systems, applications, and software patches in a classified onsite federal environment.</li>
@@ -936,198 +1202,104 @@
         <div class="role-certs">Security+ · AZ-900 · SAFe 6 Scrum Master · WGU B.S. In Progress</div>
       </div>
     </div>
-
-  </div><!-- /timeline-wrap -->
-</div><!-- /career tab -->
-
-
-<!-- ════════════════════════════════════════════════ -->
-<!--  TAB: CERTIFICATIONS                            -->
-<!-- ════════════════════════════════════════════════ -->
+  </div>
+</div>
+<!-- ═══ TAB: CERTIFICATIONS ═══ -->
 <div id="tab-certs" class="page">
   <div class="page-header">
     <h1>Certifications</h1>
     <p>Earned credentials · Active pursuit · Engineering roadmap</p>
   </div>
   <div class="certs-wrap">
-
-    <div class="section-label">// Earned — Active</div>
+    <div class="section-label">// Earned — Security &amp; Cloud Core</div>
     <div class="cert-grid">
-
-      <div class="cert-card">
-        <div class="cert-check">✓</div>
-        <div class="cert-emoji">🛡️</div>
-        <div class="cert-name">CompTIA Security+</div>
-        <div class="cert-issuer">CompTIA</div>
-        <div class="cert-status s-earned">● Active</div>
-      </div>
-
-      <div class="cert-card">
-        <div class="cert-check">✓</div>
-        <div class="cert-emoji">☁️</div>
-        <div class="cert-name">Azure Fundamentals</div>
-        <div class="cert-issuer">Microsoft · AZ-900</div>
-        <div class="cert-status s-earned">● Active</div>
-      </div>
-
-      <div class="cert-card">
-        <div class="cert-check">✓</div>
-        <div class="cert-emoji">⚡</div>
-        <div class="cert-name">SAFe 6 Scrum Master</div>
-        <div class="cert-issuer">Scaled Agile</div>
-        <div class="cert-status s-earned">● Active</div>
-      </div>
-
-      <div class="cert-card">
-        <div class="cert-check">✓</div>
-        <div class="cert-emoji">🔄</div>
-        <div class="cert-name">Professional Scrum Master I</div>
-        <div class="cert-issuer">Scrum.org · PSM I</div>
-        <div class="cert-status s-earned">● Active</div>
-      </div>
-
-      <div class="cert-card">
-        <div class="cert-check">✓</div>
-        <div class="cert-emoji">💻</div>
-        <div class="cert-name">IT Fundamentals+</div>
-        <div class="cert-issuer">CompTIA · ITF+</div>
-        <div class="cert-status s-earned">● Active</div>
-      </div>
-
-      <div class="cert-card">
-        <div class="cert-check">✓</div>
-        <div class="cert-emoji">🎧</div>
-        <div class="cert-name">HDI Customer Service Rep</div>
-        <div class="cert-issuer">HDI · HDI-CSR</div>
-        <div class="cert-status s-earned">● Active</div>
-      </div>
-
-      <div class="cert-card">
-        <div class="cert-check">✓</div>
-        <div class="cert-emoji">🔧</div>
-        <div class="cert-name">Google IT Support</div>
-        <div class="cert-issuer">Google · Coursera</div>
-        <div class="cert-status s-earned">● Active</div>
-      </div>
-
+      <div class="cert-card"><div class="cert-check">✓</div><div class="cert-emoji">🛡️</div><div class="cert-name">CompTIA Security+</div><div class="cert-issuer">CompTIA · DoD 8140 IAT II</div><div class="cert-status s-earned">● Active</div></div>
+      <div class="cert-card"><div class="cert-check">✓</div><div class="cert-emoji">☁️</div><div class="cert-name">Azure Fundamentals</div><div class="cert-issuer">Microsoft · AZ-900</div><div class="cert-status s-earned">● Active</div></div>
     </div>
-
+    <div class="section-label">// Earned — Process &amp; Foundation</div>
+    <div class="cert-grid">
+      <div class="cert-card"><div class="cert-check">✓</div><div class="cert-emoji">⚡</div><div class="cert-name">SAFe 6 Scrum Master</div><div class="cert-issuer">Scaled Agile</div><div class="cert-status s-earned">● Active</div></div>
+      <div class="cert-card"><div class="cert-check">✓</div><div class="cert-emoji">🔄</div><div class="cert-name">Professional Scrum Master I</div><div class="cert-issuer">Scrum.org · PSM I</div><div class="cert-status s-earned">● Active</div></div>
+      <div class="cert-card"><div class="cert-check">✓</div><div class="cert-emoji">💻</div><div class="cert-name">IT Fundamentals+</div><div class="cert-issuer">CompTIA · ITF+</div><div class="cert-status s-earned">● Active</div></div>
+      <div class="cert-card"><div class="cert-check">✓</div><div class="cert-emoji">🎧</div><div class="cert-name">HDI Customer Service Rep</div><div class="cert-issuer">HDI · HDI-CSR</div><div class="cert-status s-earned">● Active</div></div>
+      <div class="cert-card"><div class="cert-check">✓</div><div class="cert-emoji">🔧</div><div class="cert-name">Google IT Support</div><div class="cert-issuer">Google · Coursera</div><div class="cert-status s-earned">● Active</div></div>
+    </div>
     <div class="section-label">// In Progress</div>
     <div class="cert-grid">
-
-      <div class="cert-card">
-        <div class="cert-emoji">🎓</div>
-        <div class="cert-name">B.S. Business Information Technology Management</div>
-        <div class="cert-issuer">Western Governors University</div>
-        <div class="cert-status s-progress">◎ In Progress · Expected 2026</div>
-      </div>
-
+      <div class="cert-card"><div class="cert-emoji">🎓</div><div class="cert-name">B.S. Business Information Technology Management</div><div class="cert-issuer">Western Governors University</div><div class="cert-status s-progress">◎ In Progress · Expected 2026</div></div>
     </div>
-
-    <div class="section-label">// Target — Security Engineering Roadmap</div>
+    <div class="section-label">// Target — ICAM Engineering Roadmap</div>
     <div class="cert-grid">
-
-      <div class="cert-card target">
-        <div class="cert-emoji">🔐</div>
-        <div class="cert-name">Azure Security Engineer Associate</div>
-        <div class="cert-issuer">Microsoft · AZ-500</div>
-        <div class="cert-status s-target">◉ Priority Target</div>
-      </div>
-
-      <div class="cert-card target">
-        <div class="cert-emoji">🗝️</div>
-        <div class="cert-name">CyberArk Trustee / Defender</div>
-        <div class="cert-issuer">CyberArk · PAM Platform</div>
-        <div class="cert-status s-target">◉ Priority Target</div>
-      </div>
-
-      <div class="cert-card target">
-        <div class="cert-emoji">🐧</div>
-        <div class="cert-name">Linux+ or RHCSA</div>
-        <div class="cert-issuer">CompTIA / Red Hat</div>
-        <div class="cert-status s-target">◉ Target</div>
-      </div>
-
-      <div class="cert-card target">
-        <div class="cert-emoji">⚙️</div>
-        <div class="cert-name">CISSP</div>
-        <div class="cert-issuer">ISC²</div>
-        <div class="cert-status s-target">◉ Long-Term Target</div>
-      </div>
-
+      <div class="cert-card target"><div class="cert-phase">Phase 1</div><div class="cert-emoji">🪪</div><div class="cert-name">Identity &amp; Access Administrator</div><div class="cert-issuer">Microsoft · SC-300</div><div class="cert-status s-target">◉ Priority Target</div></div>
+      <div class="cert-card target"><div class="cert-phase">Phase 1</div><div class="cert-emoji">🐧</div><div class="cert-name">Linux+ → RHCSA</div><div class="cert-issuer">CompTIA / Red Hat</div><div class="cert-status s-target">◉ Priority Target</div></div>
+      <div class="cert-card target"><div class="cert-phase">Phase 2</div><div class="cert-emoji">🗝️</div><div class="cert-name">CyberArk Defender</div><div class="cert-issuer">CyberArk · PAM-DEF</div><div class="cert-status s-target">◉ Target</div></div>
+      <div class="cert-card target"><div class="cert-phase">Phase 2</div><div class="cert-emoji">🔐</div><div class="cert-name">Azure Security Engineer</div><div class="cert-issuer">Microsoft · AZ-500</div><div class="cert-status s-target">◉ Target</div></div>
+      <div class="cert-card target"><div class="cert-phase">Phase 3</div><div class="cert-emoji">🧬</div><div class="cert-name">SailPoint Engineer</div><div class="cert-issuer">SailPoint · Identity University</div><div class="cert-status s-target">◉ Long-Term Target</div></div>
+      <div class="cert-card target"><div class="cert-phase">Phase 3</div><div class="cert-emoji">⚙️</div><div class="cert-name">CISSP</div><div class="cert-issuer">ISC²</div><div class="cert-status s-target">◉ Long-Term Target</div></div>
     </div>
-
   </div>
-</div><!-- /certs tab -->
-
-
-<!-- ════════════════════════════════════════════════ -->
-<!--  TAB: LAB & PROJECTS                            -->
-<!-- ════════════════════════════════════════════════ -->
+</div>
+<!-- ═══ TAB: LAB & PROJECTS ═══ -->
 <div id="tab-lab" class="page">
   <div class="page-header">
     <h1>Lab &amp; Projects</h1>
     <p>Home lab · PowerShell tooling · ICAM engineering projects</p>
   </div>
-  <div class="stub-wrap" style="margin-top:1rem">
-    <div class="stub-tag">// Initializing Lab Environment</div>
-    <div class="stub-divider"></div>
-    <p>Home lab documentation, PowerShell scripts, Active Directory hardening playbooks, Azure Entra ID configs, and ICAM engineering projects are actively being built and will be documented here as they come online.</p>
-    <div class="lab-modules">
-      <div class="lab-module">
-        <div class="lab-module-icon">🏠</div>
-        <div class="lab-module-name">Active Directory Lab</div>
-        <div class="lab-module-tag">Minisforum UM790 Pro · VMware</div>
+  <div class="lab-wrap">
+    <div class="section-label">// Home Lab Infrastructure — Minisforum UM790 Pro · VMware</div>
+    <div class="lab-grid">
+      <div class="lab-card">
+        <div class="lab-status st-online"><span class="dot"></span>Online</div>
+        <div class="lab-icon">🏠</div>
+        <div class="lab-name">Active Directory Lab</div>
+        <div class="lab-tag">Domain Services · GPO Baselines · DISA STIG Hardening</div>
+        <div class="lab-progress"><span data-pct="85"></span></div>
       </div>
-      <div class="lab-module">
-        <div class="lab-module-icon">☁️</div>
-        <div class="lab-module-name">Azure Entra ID</div>
-        <div class="lab-module-tag">Hybrid Identity · Conditional Access</div>
+      <div class="lab-card">
+        <div class="lab-status st-online"><span class="dot"></span>Online</div>
+        <div class="lab-icon">☁️</div>
+        <div class="lab-name">Azure Entra ID</div>
+        <div class="lab-tag">Hybrid Identity · Conditional Access · Entra Connect</div>
+        <div class="lab-progress"><span data-pct="70"></span></div>
       </div>
-      <div class="lab-module">
-        <div class="lab-module-icon">🔐</div>
-        <div class="lab-module-name">CyberArk PAM Lab</div>
-        <div class="lab-module-tag">Coming Soon</div>
+      <div class="lab-card">
+        <div class="lab-status st-building"><span class="dot"></span>Building</div>
+        <div class="lab-icon">⚙️</div>
+        <div class="lab-name">PowerShell Tooling</div>
+        <div class="lab-tag">RBAC Audits · Identity Lifecycle · Graph API Automation</div>
+        <div class="lab-progress"><span data-pct="45"></span></div>
       </div>
-      <div class="lab-module">
-        <div class="lab-module-icon">⚙️</div>
-        <div class="lab-module-name">PowerShell Tooling</div>
-        <div class="lab-module-tag">RBAC Audits · Identity Lifecycle</div>
+      <div class="lab-card">
+        <div class="lab-status st-building"><span class="dot"></span>Building</div>
+        <div class="lab-icon">🔐</div>
+        <div class="lab-name">CyberArk PAM Lab</div>
+        <div class="lab-tag">Vault · CPM · PSM · Privileged Session Control</div>
+        <div class="lab-progress"><span data-pct="30"></span></div>
       </div>
-      <div class="lab-module">
-        <div class="lab-module-icon">🛡️</div>
-        <div class="lab-module-name">STIG Hardening</div>
-        <div class="lab-module-tag">Windows Server · DISA Baselines</div>
+      <div class="lab-card planned">
+        <div class="lab-status st-planned"><span class="dot"></span>Planned</div>
+        <div class="lab-icon">🐧</div>
+        <div class="lab-name">Linux Administration</div>
+        <div class="lab-tag">RHEL / Rocky · FreeIPA · RHCSA Track</div>
+        <div class="lab-progress"><span data-pct="10"></span></div>
       </div>
-      <div class="lab-module">
-        <div class="lab-module-icon">🐧</div>
-        <div class="lab-module-name">Linux Administration</div>
-        <div class="lab-module-tag">Coming Soon</div>
+      <div class="lab-card planned">
+        <div class="lab-status st-planned"><span class="dot"></span>Planned</div>
+        <div class="lab-icon">🧬</div>
+        <div class="lab-name">Federation Lab</div>
+        <div class="lab-tag">SAML · OIDC · SCIM · Keycloak ↔ Entra</div>
+        <div class="lab-progress"><span data-pct="5"></span></div>
       </div>
     </div>
+    <div class="section-label">// Write-Ups &amp; Scripts</div>
+    <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.8; max-width:640px;">
+      Lab documentation, hardening playbooks, and PowerShell identity tooling are being published to
+      <a href="https://github.com/olumides14-tech" target="_blank" rel="noopener" style="color:var(--gold);">GitHub</a>
+      as each module comes online. Watch this space — or ask the terminal on the home page.
+    </p>
   </div>
-</div><!-- /lab tab -->
-
-
-<!-- ════════════════════════════════════════════════ -->
-<!--  TAB: RESOURCES                                 -->
-<!-- ════════════════════════════════════════════════ -->
-<div id="tab-resources" class="page">
-  <div class="page-header">
-    <h1>Resources</h1>
-    <p>Roadmaps · Cert paths · Guides for veterans &amp; cleared professionals</p>
-  </div>
-  <div class="stub-wrap" style="margin-top:1rem">
-    <div class="stub-tag">// Building Content Library</div>
-    <div class="stub-divider"></div>
-    <p>Curated roadmaps, cert paths, tooling guides, and career resources specifically for veterans and cleared professionals breaking into ICAM and federal security engineering. Coming soon.</p>
-  </div>
-</div><!-- /resources tab -->
-
-
-<!-- ════════════════════════════════════════════════ -->
-<!--  TAB: ABOUT                                     -->
-<!-- ════════════════════════════════════════════════ -->
+</div>
+<!-- ═══ TAB: ABOUT ═══ -->
 <div id="tab-about" class="page">
   <div class="page-header">
     <h1>About</h1>
@@ -1135,123 +1307,262 @@
   </div>
   <div class="about-wrap">
     <div class="about-grid">
-
-      <div class="id-card">
+      <div class="id-card" id="id-card">
         <div class="id-avatar">OS</div>
         <div class="id-name">Olumide Sodipo</div>
-        <div class="id-role">
-          Systems Administrator<br>
-          Security &amp; ICAM Engineer<br>
-          (In Transition)<br>
-          USMC Veteran · Laurel, MD
-        </div>
+        <div class="id-role">Systems Administrator<br>Security &amp; ICAM Engineer<br>(In Transition)<br>USMC Veteran · Laurel, MD</div>
         <div class="id-clearance">TS/SCI · CI Polygraph</div>
         <div class="id-divider"></div>
         <div class="id-links">
           <a href="mailto:olumides14@gmail.com" class="id-link">✉ olumides14@gmail.com</a>
-          <a href="https://linkedin.com/in/olumide-sodipo-471061219" target="_blank" class="id-link">in LinkedIn</a>
-          <a href="https://github.com/olumides14-tech" target="_blank" class="id-link">⌥ GitHub</a>
+          <a href="https://linkedin.com/in/olumide-sodipo-471061219" target="_blank" rel="noopener" class="id-link">in LinkedIn</a>
+          <a href="https://github.com/olumides14-tech" target="_blank" rel="noopener" class="id-link">⌥ GitHub</a>
         </div>
       </div>
-
       <div class="about-body">
         <div class="about-bio">
           <p>I'm a <strong>U.S. Marine Corps veteran</strong> and cleared systems administrator building a focused career transition into <strong>identity and access management (ICAM) and federal security engineering</strong>. I hold an active TS/SCI CI Polygraph clearance and have spent the past several years working inside classified federal environments at the intersection of identity, infrastructure, and security.</p>
           <p>My background includes enterprise Active Directory administration, RBAC enforcement, PKI certificate management, privileged access provisioning, endpoint hardening aligned to DISA STIGs, and vulnerability remediation across mission-critical federal networks. I've supported FBI infrastructure, performed patch captain duties, and worked alongside ISSOs on compliance-driven security operations.</p>
           <p>I built this platform to <strong>document my technical journey</strong> in public: the home lab work, the scripting, the ICAM tooling, and the road to security engineering. I also want it to be a resource for <strong>other veterans and cleared professionals</strong> who are navigating this same transition without a clear roadmap.</p>
-          <p>If you're a vet breaking into federal IT, a cleared professional targeting ICAM or security engineering roles, or a hiring manager looking to connect, reach out.</p>
+          <p>If you're a vet breaking into federal IT, a cleared professional targeting ICAM or security engineering roles, or a hiring manager looking to connect — reach out.</p>
         </div>
-
+        <div class="about-section">
+          <div class="about-section-title">Skill Coverage — Current vs. Engineering Target</div>
+          <div class="radar-card">
+            <canvas id="radar-canvas" width="520" height="400"></canvas>
+            <div class="radar-legend">
+              <span class="lg"><span class="lg-swatch" style="background:#C9A84C"></span> Current</span>
+              <span class="lg"><span class="lg-swatch" style="background:#4BBF7A"></span> 2028 Target</span>
+            </div>
+          </div>
+        </div>
         <div class="about-section">
           <div class="about-section-title">Current Technical Strengths</div>
           <div class="chip-row">
-            <span class="chip">Active Directory</span>
-            <span class="chip">Azure Entra ID</span>
-            <span class="chip">RBAC Administration</span>
-            <span class="chip">PKI / Certificates</span>
-            <span class="chip">PowerShell</span>
-            <span class="chip">Identity Lifecycle</span>
-            <span class="chip">DISA STIGs</span>
-            <span class="chip">Zero Trust</span>
-            <span class="chip">Patch Management</span>
-            <span class="chip">VMware</span>
-            <span class="chip">BigFix / SCCM</span>
-            <span class="chip">Tenable / Nessus</span>
-            <span class="chip">ServiceNow</span>
-            <span class="chip">NIST RMF</span>
+            <span class="chip">Active Directory</span><span class="chip">Azure Entra ID</span><span class="chip">RBAC Administration</span>
+            <span class="chip">PKI / Certificates</span><span class="chip">PowerShell</span><span class="chip">Identity Lifecycle</span>
+            <span class="chip">DISA STIGs</span><span class="chip">Zero Trust</span><span class="chip">Patch Management</span>
+            <span class="chip">VMware</span><span class="chip">BigFix / SCCM</span><span class="chip">Tenable / Nessus</span>
+            <span class="chip">ServiceNow</span><span class="chip">NIST RMF</span>
           </div>
         </div>
-
         <div class="about-section">
           <div class="about-section-title">Growth Targets: ICAM Engineering</div>
           <div class="chip-row">
-            <span class="chip target">SailPoint IIQ</span>
-            <span class="chip target">CyberArk PAM</span>
-            <span class="chip target">Linux Administration</span>
-            <span class="chip target">Python Automation</span>
-            <span class="chip target">IGA Workflows</span>
-            <span class="chip target">SCIM / LDAP</span>
+            <span class="chip target">SailPoint IIQ</span><span class="chip target">CyberArk PAM</span><span class="chip target">Linux Administration</span>
+            <span class="chip target">PowerShell / Graph API</span><span class="chip target">IGA Workflows</span><span class="chip target">SAML / OIDC / SCIM</span>
             <span class="chip target">Entra PIM</span>
           </div>
         </div>
-
         <div class="about-section">
           <div class="about-section-title">Contact</div>
           <div class="contact-list">
-            <a href="mailto:olumides14@gmail.com" class="contact-row">
-              <span class="contact-icon">✉</span> olumides14@gmail.com
-            </a>
-            <a href="https://linkedin.com/in/olumide-sodipo-471061219" target="_blank" class="contact-row">
-              <span class="contact-icon">in</span> linkedin.com/in/olumide-sodipo-471061219
-            </a>
-            <a href="https://github.com/olumides14-tech" target="_blank" class="contact-row">
-              <span class="contact-icon">⌥</span> github.com/olumides14-tech
-            </a>
+            <a href="mailto:olumides14@gmail.com" class="contact-row"><span class="contact-icon">✉</span> olumides14@gmail.com</a>
+            <a href="https://linkedin.com/in/olumide-sodipo-471061219" target="_blank" rel="noopener" class="contact-row"><span class="contact-icon">in</span> linkedin.com/in/olumide-sodipo-471061219</a>
+            <a href="https://github.com/olumides14-tech" target="_blank" rel="noopener" class="contact-row"><span class="contact-icon">⌥</span> github.com/olumides14-tech</a>
           </div>
         </div>
-
       </div>
     </div>
   </div>
-</div><!-- /about tab -->
-
+</div>
 </main>
-
+<div id="palette" role="dialog" aria-label="Command palette">
+  <div class="palette-box">
+    <input id="palette-input" type="text" placeholder="Type to jump… (career, certs, lab, contact)" autocomplete="off" spellcheck="false" />
+    <ul id="palette-list"></ul>
+  </div>
+</div>
 <footer>
   Olumide Sodipo · TS/SCI CI Polygraph · Security &amp; ICAM Engineering · Laurel, MD
+  <div class="f-hint">Ctrl+K to navigate · Terminal on Home · ↑↑↓↓←→←→BA</div>
 </footer>
-
 <script>
-  // Typewriter effect on page header h1
+(function() {
+  'use strict';
+  var prefersReduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  /* ═══ BOOT SEQUENCE ═══ */
+  var bootEl = document.getElementById('boot');
+  var bootLines = document.getElementById('boot-lines');
+  var bootBar = document.getElementById('boot-bar-fill');
+  var bootDone = false;
+  var BOOT = [
+    ['> INITIALIZING SECURE SESSION', ' ............ ', '<span class="ok">[OK]</span>'],
+    ['> VERIFYING VISITOR IDENTITY', ' .............. ', '<span class="ok">[OK]</span>'],
+    ['> SUBJECT: <span class="gold">SODIPO, OLUMIDE</span> · USMC VET', '', ''],
+    ['> CLEARANCE: <span class="gold">TS/SCI · CI POLYGRAPH</span>', ' ... ', '<span class="ok">[VERIFIED]</span>'],
+    ['> LOADING PORTFOLIO MODULES', ' ............... ', '<span class="ok">[DONE]</span>'],
+    ['> <span class="gold">ACCESS GRANTED — WELCOME</span>', '', '']
+  ];
+  function endBoot() {
+    if (bootDone) return;
+    bootDone = true;
+    bootEl.classList.add('done');
+    startHero();
+  }
+  function runBoot() {
+    if (prefersReduced) { endBoot(); return; }
+    var i = 0;
+    function next() {
+      if (bootDone) return;
+      if (i >= BOOT.length) { setTimeout(endBoot, 450); return; }
+      var row = document.createElement('div');
+      row.innerHTML = BOOT[i][0] + BOOT[i][1] + BOOT[i][2];
+      bootLines.appendChild(row);
+      bootBar.style.width = Math.round(((i + 1) / BOOT.length) * 100) + '%';
+      i++;
+      setTimeout(next, 260);
+    }
+    next();
+    setTimeout(endBoot, 3200); /* hard cap */
+  }
+  bootEl.addEventListener('click', endBoot);
+  document.addEventListener('keydown', function once(e) { endBoot(); document.removeEventListener('keydown', once); });
+  /* ═══ SPOTLIGHT ═══ */
+  var spot = document.getElementById('spotlight');
+  document.addEventListener('mousemove', function(e) {
+    spot.style.setProperty('--mx', e.clientX + 'px');
+    spot.style.setProperty('--my', e.clientY + 'px');
+  });
+  /* ═══ SCROLL PROGRESS ═══ */
+  var prog = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', function() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }, { passive: true });
+  /* ═══ NETWORK CANVAS ═══ */
+  var canvas = document.getElementById('net-canvas');
+  var ctx = canvas.getContext('2d');
+  var nodes = [], mouse = { x: -9999, y: -9999 };
+  var running = false;
+  function sizeCanvas() {
+    var r = canvas.parentElement.getBoundingClientRect();
+    canvas.width = r.width;
+    canvas.height = r.height;
+  }
+  function initNodes() {
+    sizeCanvas();
+    var count = Math.min(90, Math.floor(canvas.width * canvas.height / 16000));
+    nodes = [];
+    for (var i = 0; i < count; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 1.6 + 0.8,
+        lock: Math.random() < 0.08  /* a few "key" nodes */
+      });
+    }
+  }
+  function drawNet() {
+    if (!running) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var i, j, a, b, dx, dy, d;
+    for (i = 0; i < nodes.length; i++) {
+      a = nodes[i];
+      a.x += a.vx; a.y += a.vy;
+      if (a.x < 0 || a.x > canvas.width)  a.vx *= -1;
+      if (a.y < 0 || a.y > canvas.height) a.vy *= -1;
+      dx = a.x - mouse.x; dy = a.y - mouse.y;
+      d = Math.sqrt(dx * dx + dy * dy);
+      if (d < 140 && d > 0.1) { a.x += (dx / d) * 0.6; a.y += (dy / d) * 0.6; }
+    }
+    for (i = 0; i < nodes.length; i++) {
+      for (j = i + 1; j < nodes.length; j++) {
+        a = nodes[i]; b = nodes[j];
+        dx = a.x - b.x; dy = a.y - b.y;
+        d = dx * dx + dy * dy;
+        if (d < 13000) {
+          ctx.strokeStyle = 'rgba(201,168,76,' + (0.14 * (1 - d / 13000)).toFixed(3) + ')';
+          ctx.lineWidth = 0.6;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+    for (i = 0; i < nodes.length; i++) {
+      a = nodes[i];
+      if (a.lock) {
+        ctx.fillStyle = 'rgba(226,201,126,0.9)';
+        ctx.font = '9px monospace';
+        ctx.fillText('🔒', a.x - 4, a.y + 3);
+      } else {
+        ctx.fillStyle = 'rgba(201,168,76,0.55)';
+        ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    requestAnimationFrame(drawNet);
+  }
+  canvas.parentElement.addEventListener('mousemove', function(e) {
+    var r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+  });
+  canvas.parentElement.addEventListener('mouseleave', function() { mouse.x = -9999; mouse.y = -9999; });
+  window.addEventListener('resize', function() { if (running) initNodes(); });
+  function startHero() {
+    if (!prefersReduced && !running) {
+      running = true;
+      initNodes();
+      drawNet();
+    }
+    startRotator();
+    runCounters(document.getElementById('tab-home'));
+  }
+  /* ═══ ROTATING TITLE ═══ */
+  var ROT = ['Systems Administrator', 'Identity & Access Management', 'PKI · Zero Trust · RBAC', 'USMC Veteran', 'ICAM Engineer — Loading…'];
+  var rotIdx = 0, rotStarted = false;
+  function startRotator() {
+    if (rotStarted) return; rotStarted = true;
+    var el = document.getElementById('rot-word');
+    if (prefersReduced) return;
+    setInterval(function() {
+      rotIdx = (rotIdx + 1) % ROT.length;
+      var word = ROT[rotIdx], k = 0;
+      el.textContent = '';
+      var t = setInterval(function() {
+        el.textContent = word.slice(0, ++k);
+        if (k >= word.length) clearInterval(t);
+      }, 34);
+    }, 3400);
+  }
+  /* ═══ COUNT-UP STATS ═══ */
+  function runCounters(scope) {
+    scope.querySelectorAll('[data-count]').forEach(function(span) {
+      if (span.dataset.done) return;
+      span.dataset.done = '1';
+      var target = parseInt(span.getAttribute('data-count'), 10);
+      var start = performance.now(), dur = 1300;
+      function step(now) {
+        var p = Math.min((now - start) / dur, 1);
+        span.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target);
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  /* ═══ TABS ═══ */
   function typewrite(el, text) {
-    var speed = 36;
+    if (prefersReduced) { el.textContent = text; return; }
     el.innerHTML = '';
     var cursor = document.createElement('span');
     cursor.className = 'typewriter-cursor';
     el.appendChild(cursor);
     var i = 0;
-    function tick() {
+    (function tick() {
       if (i < text.length) {
-        el.insertBefore(document.createTextNode(text[i]), cursor);
-        i++;
-        setTimeout(tick, speed);
+        el.insertBefore(document.createTextNode(text[i++]), cursor);
+        setTimeout(tick, 34);
       } else {
-        setTimeout(function() {
-          if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
-        }, 1400);
+        setTimeout(function() { if (cursor.parentNode) cursor.parentNode.removeChild(cursor); }, 1400);
       }
-    }
-    setTimeout(tick, 60);
+    })();
   }
-
-  // Staggered entrance for cards and sections within a tab
   function animateItems(tabId) {
     var tab = document.getElementById('tab-' + tabId);
     if (!tab) return;
-
-    // Draw the timeline line
     var line = tab.querySelector('.timeline-line');
-    if (line) {
+    if (line && !prefersReduced) {
       line.style.transition = 'none';
       line.style.transform = 'scaleY(0)';
       line.style.transformOrigin = 'top';
@@ -1260,82 +1571,300 @@
         line.style.transform = 'scaleY(1)';
       }, 120);
     }
-
-    // All animatable items in order
-    var items = tab.querySelectorAll(
-      '.role-card, .section-label, .cert-card, .lab-module, .id-card, .about-bio, .about-section'
-    );
-
+    var items = tab.querySelectorAll('.role-card, .section-label, .cert-card, .lab-card, .id-card, .about-bio, .about-section, .traj-card, .stat-card');
     items.forEach(function(el, i) {
-      el.style.transition = 'none';
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(18px)';
-
+      if (!prefersReduced) {
+        el.style.transition = 'none';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(18px)';
+      }
       setTimeout(function() {
         el.style.transition = 'opacity 0.44s ease, transform 0.44s ease';
         el.style.opacity = '1';
         el.style.transform = 'translateY(0)';
-
-        // Trigger salary bar fill after card appears
-        el.querySelectorAll('.salary-bar-fill').forEach(function(bar) {
+        el.querySelectorAll('.salary-bar-fill, .lab-progress span').forEach(function(bar) {
           var pct = bar.getAttribute('data-pct') || '0';
           setTimeout(function() { bar.style.width = pct + '%'; }, 200);
         });
-
-        // Count-up animation on delta values
         el.querySelectorAll('.countup-val').forEach(function(span) {
+          if (span.dataset.done) { return; }
+          span.dataset.done = '1';
           var parent = span.closest('[data-countup]');
           var target = parseInt(parent ? parent.getAttribute('data-countup') : span.textContent, 10);
-          var duration = 900;
           var start = performance.now();
           function step(now) {
-            var elapsed = now - start;
-            var progress = Math.min(elapsed / duration, 1);
-            var ease = 1 - Math.pow(1 - progress, 3);
-            span.textContent = Math.round(ease * target);
-            if (progress < 1) requestAnimationFrame(step);
+            var p = Math.min((now - start) / 900, 1);
+            span.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target);
+            if (p < 1) requestAnimationFrame(step);
           }
           setTimeout(function() { requestAnimationFrame(step); }, 250);
         });
-
-      }, 80 + i * 72);
+      }, prefersReduced ? 0 : 80 + i * 60);
     });
+    if (tabId === 'career') drawTrajectory();
+    if (tabId === 'about') setTimeout(drawRadar, 250);
+    if (tabId === 'home') runCounters(tab);
   }
-
-  function switchTab(id, btn) {
+  window.switchTab = function(id, btn) {
     document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
     document.querySelectorAll('.nav-tabs button').forEach(function(b) { b.classList.remove('active'); });
     document.getElementById('tab-' + id).classList.add('active');
-    btn.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
+    if (btn) btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
     var h1 = document.querySelector('#tab-' + id + ' .page-header h1');
     if (h1) typewrite(h1, h1.getAttribute('data-text') || h1.textContent.trim());
-
     animateItems(id);
-  }
-
-  function toggleRole(btn) {
+  };
+  window.switchTabById = function(id) {
+    var btn = document.querySelector('.nav-tabs button[data-tab="' + id + '"]');
+    window.switchTab(id, btn);
+  };
+  window.toggleRole = function(btn) {
     var details = btn.nextElementSibling;
     var opening = !details.classList.contains('open');
     details.classList.toggle('open', opening);
     btn.classList.toggle('open', opening);
     btn.querySelector('.chevron').textContent = opening ? '▼' : '▶';
     btn.querySelector('.btn-label').textContent = opening ? 'Hide Role' : 'View Role';
+  };
+  /* ═══ TRAJECTORY CHART DRAW ═══ */
+  var trajDrawn = false;
+  function drawTrajectory() {
+    if (trajDrawn) return; trajDrawn = true;
+    var line = document.getElementById('traj-line');
+    var area = document.getElementById('traj-area');
+    if (!line) return;
+    var len = (typeof line.getTotalLength === 'function') ? line.getTotalLength() : 1400;
+    line.style.strokeDasharray = len;
+    line.style.strokeDashoffset = prefersReduced ? 0 : len;
+    setTimeout(function() {
+      line.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(0.4,0,0.2,1)';
+      line.style.strokeDashoffset = '0';
+      area.style.transition = 'opacity 1.2s ease 0.6s';
+      area.style.opacity = '1';
+    }, 300);
   }
-
+  /* ═══ RADAR CHART ═══ */
+  var radarDrawn = false;
+  function drawRadar() {
+    var cv = document.getElementById('radar-canvas');
+    if (!cv || radarDrawn) return; radarDrawn = true;
+    var c = cv.getContext('2d');
+    var W = cv.width, H = cv.height, cx = W / 2, cy = H / 2 + 8, R = Math.min(W, H) / 2 - 58;
+    var axes = ['AD / Entra ID', 'PKI / Certs', 'Patch & Vuln', 'PowerShell', 'Linux', 'PAM / IGA', 'Federation'];
+    var current = [0.88, 0.78, 0.85, 0.55, 0.15, 0.25, 0.10];
+    var target  = [0.95, 0.90, 0.90, 0.85, 0.75, 0.80, 0.75];
+    var N = axes.length;
+    function pt(i, v) {
+      var ang = (Math.PI * 2 * i / N) - Math.PI / 2;
+      return [cx + Math.cos(ang) * R * v, cy + Math.sin(ang) * R * v];
+    }
+    var t0 = performance.now(), dur = prefersReduced ? 1 : 1100;
+    (function frame(now) {
+      var p = Math.min((now - t0) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      c.clearRect(0, 0, W, H);
+      /* grid */
+      c.strokeStyle = 'rgba(201,168,76,0.14)';
+      c.lineWidth = 1;
+      for (var ring = 1; ring <= 4; ring++) {
+        c.beginPath();
+        for (var i = 0; i <= N; i++) {
+          var q = pt(i % N, ring / 4);
+          i === 0 ? c.moveTo(q[0], q[1]) : c.lineTo(q[0], q[1]);
+        }
+        c.stroke();
+      }
+      c.strokeStyle = 'rgba(201,168,76,0.2)';
+      for (i = 0; i < N; i++) {
+        var q = pt(i, 1);
+        c.beginPath(); c.moveTo(cx, cy); c.lineTo(q[0], q[1]); c.stroke();
+      }
+      /* labels */
+      c.fillStyle = '#7A7568';
+      c.font = '10px "JetBrains Mono", monospace';
+      c.textAlign = 'center';
+      for (i = 0; i < N; i++) {
+        var lq = pt(i, 1.18);
+        c.fillText(axes[i], lq[0], lq[1] + 3);
+      }
+      /* polygons */
+      function poly(vals, stroke, fill) {
+        c.beginPath();
+        for (var i = 0; i <= N; i++) {
+          var q = pt(i % N, vals[i % N] * e);
+          i === 0 ? c.moveTo(q[0], q[1]) : c.lineTo(q[0], q[1]);
+        }
+        c.closePath();
+        c.fillStyle = fill; c.fill();
+        c.strokeStyle = stroke; c.lineWidth = 1.6; c.stroke();
+      }
+      poly(target,  'rgba(75,191,122,0.8)',  'rgba(75,191,122,0.07)');
+      poly(current, 'rgba(201,168,76,0.95)', 'rgba(201,168,76,0.14)');
+      if (p < 1) requestAnimationFrame(frame);
+    })(t0);
+  }
+  /* ═══ ID CARD TILT ═══ */
+  var idCard = document.getElementById('id-card');
+  if (idCard && !prefersReduced) {
+    idCard.addEventListener('mousemove', function(e) {
+      var r = idCard.getBoundingClientRect();
+      var rx = ((e.clientY - r.top) / r.height - 0.5) * -7;
+      var ry = ((e.clientX - r.left) / r.width - 0.5) * 7;
+      idCard.style.transform = 'perspective(700px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+    });
+    idCard.addEventListener('mouseleave', function() { idCard.style.transform = 'none'; });
+  }
+  /* ═══ TERMINAL ═══ */
+  var termBody = document.getElementById('term-body');
+  var termInput = document.getElementById('term-input');
+  var history = [], histIdx = -1;
+  var CMDS = {
+    help: "Available commands:\n  <span class='hl'>whoami</span>      — identity summary\n  <span class='hl'>clearance</span>   — clearance status\n  <span class='hl'>career</span>      — role history\n  <span class='hl'>certs</span>       — certifications\n  <span class='hl'>skills</span>      — technical stack\n  <span class='hl'>roadmap</span>     — the 2028 plan\n  <span class='hl'>homelab</span>     — lab status\n  <span class='hl'>contact</span>     — reach out\n  <span class='hl'>ls</span> · <span class='hl'>sudo</span> · <span class='hl'>clear</span> — you know what these do. Mostly.",
+    whoami: "Olumide Sodipo — <span class='hl'>U.S. Marine Corps veteran</span> · cleared Systems Administrator\nCurrent mission: Systems Administration @ Revolutional (classified federal)\nTrajectory: <span class='hl'>Security / ICAM Engineer</span> — ETA 2028. On schedule.",
+    clearance: "CLEARANCE ....... <span class='hl'>TOP SECRET / SCI</span>\nPOLYGRAPH ....... <span class='hl'>CI — CURRENT</span>\nSTATUS .......... <span class='ok'>ACTIVE ✓</span>\n\n(This terminal is UNCLASSIFIED. Relax.)",
+    career: "2018–2022  USMC ............ Helpdesk Technician [Secret]\n2023       IMTAS ........... IT Specialist [TS/SCI CI Poly]\n2023–2025  ECS Federal ..... Service Desk Analyst, Tier 2-3\n2025–2026  YSI ............. Systems Administrator (FBI env)\n2026–now   Revolutional .... Systems Administrator <span class='ok'>● current</span>\n\nFull details → <span class='hl'>Career</span> tab.",
+    certs: "<span class='ok'>[✓]</span> CompTIA Security+ (8140 IAT II)   <span class='ok'>[✓]</span> Azure AZ-900\n<span class='ok'>[✓]</span> SAFe 6 SM · PSM I · ITF+ · HDI-CSR · Google IT\n<span class='hl'>[◎]</span> WGU B.S. BITM — expected 2026\n<span class='hl'>[◉]</span> Next: SC-300 → RHCSA → CyberArk Defender → SailPoint → CISSP",
+    skills: "IDENTITY ..... AD · Entra ID · RBAC · MFA · PKI · lifecycle mgmt\nENDPOINT ..... BigFix · SCCM · GPO · DISA STIGs · Zero Trust\nVULN/PATCH ... Tenable · RFC lifecycle · post-patch remediation\nCLOUD/INFRA .. Azure · VMware · Windows Server · PowerShell\nIN TRAINING .. Linux · CyberArk PAM · SailPoint · SAML/OIDC/SCIM",
+    roadmap: "PHASE 1 (2026) ... WGU degree ✦ SC-300 ✦ Linux daily-driver\nPHASE 2 (2027) ... RHCSA ✦ CyberArk Defender ✦ federation lab\nPHASE 3 (2028) ... SailPoint ✦ CISSP ✦ <span class='hl'>ICAM Engineer role</span>\n\nDiscipline &gt; motivation. The plan is public on purpose.",
+    homelab: "AD LAB ............. <span class='ok'>● ONLINE</span>   (STIG-hardened domain)\nENTRA ID ........... <span class='ok'>● ONLINE</span>   (hybrid identity + CA)\nPOWERSHELL TOOLS ... <span class='hl'>◐ BUILDING</span> (Graph API automation)\nCYBERARK PAM ....... <span class='hl'>◐ BUILDING</span> (vault + CPM + PSM)\nLINUX / FREEIPA .... ○ PLANNED\nFEDERATION LAB ..... ○ PLANNED  (Keycloak ↔ Entra)",
+    contact: "EMAIL ....... olumides14@gmail.com\nLINKEDIN .... linkedin.com/in/olumide-sodipo-471061219\nGITHUB ...... github.com/olumides14-tech\n\nCleared recruiters: yes, the poly is current.",
+    ls: "career/   certs/   homelab/   roadmap.md   clearance.sig   resume.pdf",
+    sudo: "<span class='err'>visitor is not in the sudoers file.</span>\nThis incident will be reported to the ISSO.\nPrivileged access is brokered through CyberArk — as it should be.",
+    semperfi: "🦅 <span class='hl'>SEMPER FIDELIS.</span> 2018–2022. Once a Marine, always a Marine.",
+    oorah: "🦅 <span class='hl'>OORAH.</span> Devil Dog IT support was still IT support.",
+    clear: null
+  };
+  CMDS['cat resume.pdf'] = "cat: resume.pdf: binary file — nice try.\nHuman-readable version lives in the <span class='hl'>Career</span> tab.";
+  CMDS['cat clearance.sig'] = "-----BEGIN CLEARANCE SIGNATURE-----\nREDACTED // NOFORN // NICE TRY\n-----END CLEARANCE SIGNATURE-----";
+  CMDS['cat roadmap.md'] = CMDS.roadmap;
+  function termPrint(html) {
+    var div = document.createElement('div');
+    div.className = 't-out';
+    div.innerHTML = html;
+    termBody.insertBefore(div, termBody.lastElementChild);
+    termBody.scrollTop = termBody.scrollHeight;
+  }
+  function termEcho(cmd) {
+    var div = document.createElement('div');
+    div.innerHTML = "<span class='t-prompt'>visitor@sodipo</span><span class='t-path'>:~$</span> " + cmd.replace(/</g, '&lt;');
+    termBody.insertBefore(div, termBody.lastElementChild);
+  }
+  termInput.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (history.length) { histIdx = Math.max(0, histIdx - 1); termInput.value = history[histIdx]; }
+      return;
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (histIdx < history.length - 1) { histIdx++; termInput.value = history[histIdx]; }
+      else { histIdx = history.length; termInput.value = ''; }
+      return;
+    }
+    if (e.key !== 'Enter') return;
+    var raw = termInput.value.trim();
+    termInput.value = '';
+    if (!raw) return;
+    history.push(raw); histIdx = history.length;
+    termEcho(raw);
+    var cmd = raw.toLowerCase();
+    if (cmd === 'clear' || cmd === 'cls') {
+      termBody.querySelectorAll('.t-out, div:not(.term-input-row)').forEach(function(n) {
+        if (!n.classList.contains('term-input-row')) n.remove();
+      });
+      return;
+    }
+    if (CMDS.hasOwnProperty(cmd)) { termPrint(CMDS[cmd]); }
+    else if (cmd === 'rm -rf /' || cmd.indexOf('rm -rf') === 0) {
+      termPrint("<span class='err'>Permission denied.</span> Backups exist. Disaster recovery is literally on the resume.");
+    } else if (cmd === 'exit' || cmd === 'logout') {
+      termPrint("There is no exit. Only the <span class='hl'>Contact</span> section.");
+    } else {
+      termPrint("command not found: <span class='err'>" + raw.replace(/</g, '&lt;') + "</span> — try '<span class='hl'>help</span>'");
+    }
+    termBody.scrollTop = termBody.scrollHeight;
+  });
+  /* ═══ COMMAND PALETTE ═══ */
+  var palette = document.getElementById('palette');
+  var palInput = document.getElementById('palette-input');
+  var palList = document.getElementById('palette-list');
+  var PAL_ITEMS = [
+    { label: 'Home — hero & terminal',        tag: 'tab',    run: function() { switchTabById('home'); } },
+    { label: 'Career — timeline & salary',    tag: 'tab',    run: function() { switchTabById('career'); } },
+    { label: 'Certifications — earned & roadmap', tag: 'tab', run: function() { switchTabById('certs'); } },
+    { label: 'Lab & Projects — home lab status',  tag: 'tab', run: function() { switchTabById('lab'); } },
+    { label: 'About — bio, radar, contact',   tag: 'tab',    run: function() { switchTabById('about'); } },
+    { label: 'Open terminal',                 tag: 'action', run: function() { switchTabById('home'); setTimeout(function() { document.getElementById('term-section').scrollIntoView({behavior:'smooth'}); termInput.focus(); }, 400); } },
+    { label: 'Email — olumides14@gmail.com',  tag: 'link',   run: function() { location.href = 'mailto:olumides14@gmail.com'; } },
+    { label: 'LinkedIn profile',              tag: 'link',   run: function() { window.open('https://linkedin.com/in/olumide-sodipo-471061219', '_blank'); } },
+    { label: 'GitHub — olumides14-tech',      tag: 'link',   run: function() { window.open('https://github.com/olumides14-tech', '_blank'); } }
+  ];
+  var palSel = 0, palFiltered = PAL_ITEMS;
+  function renderPalette() {
+    palList.innerHTML = '';
+    palFiltered.forEach(function(item, i) {
+      var li = document.createElement('li');
+      li.innerHTML = '<span>' + item.label + '</span><span class="pl-tag">' + item.tag + '</span>';
+      if (i === palSel) li.classList.add('sel');
+      li.addEventListener('click', function() { closePalette(); item.run(); });
+      palList.appendChild(li);
+    });
+  }
+  window.openPalette = function() {
+    palette.classList.add('open');
+    palInput.value = '';
+    palFiltered = PAL_ITEMS; palSel = 0;
+    renderPalette();
+    setTimeout(function() { palInput.focus(); }, 30);
+  };
+  function closePalette() { palette.classList.remove('open'); }
+  palette.addEventListener('click', function(e) { if (e.target === palette) closePalette(); });
+  palInput.addEventListener('input', function() {
+    var q = palInput.value.toLowerCase();
+    palFiltered = PAL_ITEMS.filter(function(it) { return it.label.toLowerCase().indexOf(q) !== -1; });
+    palSel = 0; renderPalette();
+  });
+  palInput.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowDown') { e.preventDefault(); palSel = Math.min(palSel + 1, palFiltered.length - 1); renderPalette(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); palSel = Math.max(palSel - 1, 0); renderPalette(); }
+    else if (e.key === 'Enter') { if (palFiltered[palSel]) { closePalette(); palFiltered[palSel].run(); } }
+    else if (e.key === 'Escape') { closePalette(); }
+  });
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openPalette(); }
+    if (e.key === 'Escape' && palette.classList.contains('open')) closePalette();
+  });
+  /* ═══ TOAST + KONAMI ═══ */
+  var toast = document.getElementById('toast'), toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 3200);
+  }
+  var KONAMI = ['arrowup','arrowup','arrowdown','arrowdown','arrowleft','arrowright','arrowleft','arrowright','b','a'];
+  var kIdx = 0;
+  document.addEventListener('keydown', function(e) {
+    var k = e.key.toLowerCase();
+    kIdx = (k === KONAMI[kIdx]) ? kIdx + 1 : (k === KONAMI[0] ? 1 : 0);
+    if (kIdx === KONAMI.length) {
+      kIdx = 0;
+      showToast('🦅 SEMPER FIDELIS — 2018–2022 · OORAH');
+      document.body.style.transition = 'filter 0.3s';
+      document.body.style.filter = 'sepia(0.5) saturate(1.4)';
+      setTimeout(function() { document.body.style.filter = 'none'; }, 1200);
+    }
+  });
+  /* ═══ INIT ═══ */
   document.addEventListener('DOMContentLoaded', function() {
-    // Cache h1 text before any manipulation
     document.querySelectorAll('.page-header h1').forEach(function(h1) {
       h1.setAttribute('data-text', h1.textContent.trim());
     });
-
-    // Kick off initial tab
-    var h1 = document.querySelector('#tab-career .page-header h1');
-    if (h1) typewrite(h1, h1.getAttribute('data-text'));
-    animateItems('career');
+    runBoot();
   });
+})();
 </script>
-
+<!-- Built for GitHub Pages · single file, no dependencies beyond Google Fonts -->
 </body>
 </html>
